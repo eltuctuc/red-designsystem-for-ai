@@ -6,7 +6,7 @@ Create a prototype screen by following a DLS pattern/recipe.
 
 ## Required inputs
 
-- Pattern JSON: `patterns/<id>/pattern.json`
+- Pattern JSON: `red-dls4ai/patterns/<id>/pattern.json`
 - Relevant contracts listed in `uses_contracts`
 - Tokens + rules as described in `playbooks/use-tokens.md`
 

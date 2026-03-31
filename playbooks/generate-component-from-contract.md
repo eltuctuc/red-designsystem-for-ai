@@ -6,9 +6,9 @@ Implement a UI component in the current project based on a DLS contract.
 
 ## Required inputs
 
-- Contract JSON: `contracts/<id>/contract.json`
-- Tokens CSS: `tokens/dist/theme.css`
-- Rules: `rules/rules.json`
+- Contract JSON: `red-dls4ai/contracts/<id>/contract.json`
+- Tokens CSS: `red-dls4ai/tokens/dist/theme.css`
+- Rules: `red-dls4ai/rules/rules.json`
 
 ## Output expectations
 

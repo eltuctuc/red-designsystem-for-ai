@@ -10,3 +10,6 @@ When you publish to npm later, the recommended split is:
 
 This keeps prototyping fast while keeping the system framework-agnostic.
 
+## Recommended submodule name
+
+When consuming this repo as a git submodule, we recommend naming the folder `red-dls4ai/` to make its purpose obvious across projects.

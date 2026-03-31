@@ -1,4 +1,4 @@
-# Design System (KI-optimiert, framework-agnostisch)
+# `red-dls4ai` (KI-optimiert, framework-agnostisch)
 
 Dieses Repository ist als **maschinenlesbares Design Language System** gedacht: Es liefert Tokens, Regeln (Guardrails), Komponenten-Contracts und Patterns/Recipes, damit eine KI in konkreten Projekten konsistente UI-Lösungen erzeugen kann – ohne dich auf feste Implementierungen (z.B. Web Components) festzunageln.
 
@@ -33,6 +33,23 @@ npm run build:tokens
 - Theme setzen (Beispiel):
   - Light: `<html data-theme="light">`
   - Dark: `<html data-theme="dark">`
+
+## Verwendung als Git Submodule (empfohlen)
+
+Wir empfehlen, dieses Repo als Submodule unter dem Ordnernamen **`red-dls4ai/`** einzubinden:
+
+```bash
+git submodule add https://github.com/eltuctuc/red-designsystem-for-ai.git red-dls4ai
+git submodule update --init --recursive
+```
+
+Dann sind die wichtigsten Pfade in deinem Projekt:
+
+- Tokens CSS: `red-dls4ai/tokens/dist/theme.css`
+- Base styles: `red-dls4ai/styles/base.css`
+- Rules: `red-dls4ai/rules/rules.json`
+- Contracts: `red-dls4ai/contracts/*/contract.json`
+- Patterns: `red-dls4ai/patterns/*/pattern.json`
 
 ## Wie diese Specs gedacht sind (für KI)
 

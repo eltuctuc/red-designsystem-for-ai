@@ -8,6 +8,11 @@ The format is based on **Keep a Changelog** and the project follows **Semantic V
 
 -
 
+## [0.2.1] - 2026-03-31
+
+- Documentation: recommend `red-dls4ai/` as the submodule folder name.
+- Documentation: align playbooks and paths with the recommended submodule name.
+
 ## [0.2.0] - 2026-03-31
 
 - Flatten repository layout: moved all DLS files from `design-system/` into repo root.

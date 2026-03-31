@@ -2,15 +2,15 @@
 
 ## Inputs
 
-- `tokens/dist/theme.css`
-- `styles/base.css`
+- `red-dls4ai/tokens/dist/theme.css`
+- `red-dls4ai/styles/base.css`
 
 ## Steps
 
 1) Include CSS:
 
-- import `tokens/dist/theme.css`
-- import `styles/base.css`
+- import `red-dls4ai/tokens/dist/theme.css`
+- import `red-dls4ai/styles/base.css`
 
 2) Set theme:
 
@@ -21,4 +21,3 @@
 
 - `--ds-semantic-*` for UI code
 - `--ds-primitives-*` only for building new semantic tokens
-
