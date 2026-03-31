@@ -1,0 +1,109 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "textarea",
+  "title": "Textarea",
+  "description": "Multi-line text input. Prefer native <textarea>.",
+  "anatomy": {
+    "parts": ["root", "label", "control", "helper-text", "error-text"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current value."
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "required": false,
+      "default": 4,
+      "description": "Initial visible lines."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Validation error state."
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; keep text readable."]
+    },
+    {
+      "name": "invalid",
+      "description": "Validation error state.",
+      "effects": ["Show error text and aria-invalid; avoid relying on border color alone."]
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "Value changes (native input event)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Use native <textarea> for correct keyboard behavior.",
+      "Tab moves focus out; Enter inserts new line."
+    ],
+    "aria": [
+      "Label via <label for> or wrapping label.",
+      "If invalid, set aria-invalid and connect error with aria-describedby."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Label must be programmatically associated with the textarea.",
+      "Focus indicator must be visible."
+    ],
+    "should": [
+      "Set a reasonable default height (rows) for the use case.",
+      "Auto-resize is optional; if used, it must not cause layout jank."
+    ],
+    "must_not": [
+      "Do not prevent text selection/copy in read-only scenarios."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control background",
+      "notes": "Use surface background for controls."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control border",
+      "notes": "Default border; on focus use semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Border radius",
+      "notes": "Use consistent control radius."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<label for=\"about\">About</label><textarea id=\"about\" name=\"about\" rows=\"4\"></textarea>"
+    }
+  ]
+}
+

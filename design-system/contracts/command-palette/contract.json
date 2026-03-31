@@ -1,0 +1,114 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "command-palette",
+  "title": "Command Palette",
+  "description": "Keyboard-first command launcher (Cmd/Ctrl+K). Typically implemented as a dialog containing a combobox-like search and a list of results.",
+  "anatomy": {
+    "parts": ["root", "overlay", "container", "input", "list", "group", "item", "empty", "footer", "shortcut-hint"],
+    "slots": ["footer"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls visibility."
+    },
+    {
+      "name": "hotkey",
+      "type": "string",
+      "required": false,
+      "default": "mod+k",
+      "description": "Global shortcut to open (implementation-specific)."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "default": "Type a command…",
+      "description": "Search input placeholder."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Palette open and modal.",
+      "effects": ["Focus is inside palette; background is inert."]
+    },
+    {
+      "name": "active-item",
+      "description": "Highlighted result item.",
+      "effects": ["Highlighted background; keep label readable."]
+    },
+    {
+      "name": "empty",
+      "description": "No results.",
+      "effects": ["Shows empty state copy."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Palette opened."
+    },
+    {
+      "name": "close",
+      "description": "Palette closed (reason: escape/select/outside)."
+    },
+    {
+      "name": "select",
+      "description": "Command selected (provides command id)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "On open, focus moves to the input.",
+      "ArrowDown/ArrowUp moves active item; Enter selects active item.",
+      "Esc closes and returns focus to the opener.",
+      "Tab should usually move focus through any secondary controls; avoid trapping focus in the list."
+    ],
+    "aria": [
+      "Palette container uses role=\"dialog\" and aria-modal=\"true\".",
+      "Search input can use combobox/listbox roles (see combobox contract) or simple input + list with appropriate labeling.",
+      "Results list should be announced (e.g. role=\"listbox\" + options) if interactive selection is not plain buttons."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Palette must be usable keyboard-first with predictable focus management.",
+      "Must provide a clear way to dismiss (Esc and/or close button)."
+    ],
+    "should": [
+      "Support grouping (e.g. Navigation, Actions, Recent).",
+      "Show keyboard shortcuts as hints (display only)."
+    ],
+    "must_not": [
+      "Do not open multiple palettes at once.",
+      "Do not steal focus when closed."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Panel background",
+      "notes": "Use surface background for the palette container."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Elevation",
+      "notes": "Use overlay shadow for the modal surface."
+    },
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Open/close motion",
+      "notes": "Use UI motion token for transitions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Dialog + input skeleton",
+      "html": "<div role=\"dialog\" aria-modal=\"true\" aria-label=\"Command palette\"><input type=\"text\" placeholder=\"Type a command…\" /><div role=\"listbox\"><div role=\"option\">Go to Projects</div><div role=\"option\">Create new…</div></div></div>"
+    }
+  ]
+}
+

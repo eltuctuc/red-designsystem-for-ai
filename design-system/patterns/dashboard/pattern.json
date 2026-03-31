@@ -1,0 +1,65 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "dashboard",
+  "title": "Dashboard (Overview)",
+  "intent": [
+    "Provide a scannable overview of key metrics and recent changes.",
+    "Support drilling down from summaries to details.",
+    "Handle loading and empty states without layout jank."
+  ],
+  "uses_contracts": ["stat-card", "metric", "chart-container", "table", "filter-bar", "search-input", "pagination", "empty-state", "skeleton", "link"],
+  "structure": [
+    "Top: page title + time range selector (optional) + primary action.",
+    "KPI row: 3–6 stat cards with consistent formatting and clear trend indicators.",
+    "Charts section: 1–3 chart containers with titles and textual summaries.",
+    "Recent activity: table/list with pagination; provide quick filters/search.",
+    "Loading: use skeletons in place to keep layout stable; avoid flashing empty states."
+  ],
+  "a11y": {
+    "keyboard": [
+      "All interactive controls (filters, table sorting, links) are reachable via Tab.",
+      "Stat cards that are interactive use native <a>/<button> and show focus-visible ring."
+    ],
+    "aria": [
+      "Charts include summaries or alternative data access (table/summary text).",
+      "Tables use semantic <table> and aria-sort for sorting.",
+      "Empty states are labeled and actionable."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "KPIs are comparable: consistent units/formatting and time range context is visible.",
+      "Trends are not conveyed by color alone (include arrow/sign/text).",
+      "Charts and legends do not rely on color alone to distinguish series.",
+      "Dashboard does not become a dense report; keep it scannable and link to detail views."
+    ],
+    "error_messaging": [
+      "When data fails to load, show a section-level fallback and a retry action.",
+      "Use a toast for transient errors; use inline fallback for persistent failures."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.canvas",
+      "maps_to": "Page background",
+      "notes": "Use canvas as base background."
+    },
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Cards and panels",
+      "notes": "Use surface for stat cards, chart panels, and tables."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Dividers",
+      "notes": "Use default border for separators and table dividers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Dashboard skeleton",
+      "html": "<main><h1>Overview</h1><section aria-label=\"KPIs\">…</section><section aria-label=\"Charts\">…</section><section aria-label=\"Recent activity\">…</section></main>"
+    }
+  ]
+}
+

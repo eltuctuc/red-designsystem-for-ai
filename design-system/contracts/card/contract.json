@@ -1,0 +1,95 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "card",
+  "title": "Card",
+  "description": "Surface container for grouped content. May be static or clickable (link/card button) depending on context.",
+  "anatomy": {
+    "parts": ["root", "header", "body", "footer", "media"],
+    "slots": ["header", "body", "footer", "media"]
+  },
+  "props": [
+    {
+      "name": "elevation",
+      "type": "string",
+      "required": false,
+      "default": "surface",
+      "enum": ["flat", "surface", "overlay"],
+      "description": "Controls shadow and border treatment."
+    },
+    {
+      "name": "interactive",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "When true, card acts like a link/button and must support keyboard focus."
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "description": "Pointer hover (interactive).",
+      "effects": ["Slight elevation or border change within motion rules."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator (interactive).",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "description": "Activates navigation/action when interactive."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If interactive, use <a> or <button> to get keyboard behavior for free.",
+      "Do not make entire card clickable if it contains other interactive elements (avoid nested interactive)."
+    ],
+    "aria": [
+      "If interactive, ensure accessible name (e.g. via heading text)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Card must have clear padding and separation from the background.",
+      "If interactive, focus indicator must be visible."
+    ],
+    "should": [
+      "Use cards to group related content; avoid overusing for simple lists."
+    ],
+    "must_not": [
+      "Do not nest links/buttons inside a clickable card root."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Surface background",
+      "notes": "Use for card background."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Border",
+      "notes": "Optional subtle border on flat cards."
+    },
+    {
+      "token": "semantic.shadow.surface",
+      "maps_to": "Elevation",
+      "notes": "Use surface/overlay shadow depending on elevation."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Corner radius",
+      "notes": "Use surface radius for containers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<section aria-label=\"Project\" data-elevation=\"surface\"><h3>Project Alpha</h3><p>Summary…</p></section>"
+    }
+  ]
+}
+

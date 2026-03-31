@@ -1,0 +1,144 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "table",
+  "title": "Table",
+  "description": "Tabular data display with optional sorting, selection, and row actions. Prefer semantic <table> for accessibility; use grid only when necessary.",
+  "anatomy": {
+    "parts": ["root", "caption", "head", "header-cell", "body", "row", "cell", "footer", "empty", "loading"],
+    "slots": ["caption"]
+  },
+  "props": [
+    {
+      "name": "density",
+      "type": "string",
+      "required": false,
+      "default": "comfortable",
+      "enum": ["comfortable", "compact"],
+      "description": "Row height/padding."
+    },
+    {
+      "name": "sortable",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether columns can be sorted."
+    },
+    {
+      "name": "sort",
+      "type": "{columnId:string, direction:'asc'|'desc'}",
+      "required": false,
+      "description": "Current sort state (if sortable)."
+    },
+    {
+      "name": "selectable",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether rows can be selected."
+    },
+    {
+      "name": "rowActions",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether rows have an actions column (e.g. overflow menu)."
+    }
+  ],
+  "states": [
+    {
+      "name": "loading",
+      "description": "Data loading.",
+      "effects": ["Show skeleton rows or loading state; keep layout stable."]
+    },
+    {
+      "name": "empty",
+      "description": "No rows to display.",
+      "effects": ["Show empty state region (can use empty-state contract)."]
+    },
+    {
+      "name": "sorted",
+      "description": "A column is sorted.",
+      "effects": ["Sort indicator visible; aria-sort set on header cell."]
+    },
+    {
+      "name": "row-selected",
+      "description": "Row is selected (if selectable).",
+      "effects": ["Selection indicator visible; row styling indicates selection without color-only."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on interactive header/actions.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "sort",
+      "description": "Sort changes (columnId + direction)."
+    },
+    {
+      "name": "select",
+      "description": "Row selection changes."
+    },
+    {
+      "name": "rowAction",
+      "description": "Row action invoked (e.g. menu item)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If header cells are clickable for sorting, they must be focusable controls (button in th) and operable with Enter/Space.",
+      "Row selection uses native checkbox in a cell (recommended) for keyboard support.",
+      "Avoid making entire rows clickable when they contain other interactive controls."
+    ],
+    "aria": [
+      "Use semantic <table> with <thead>, <tbody>, <th scope=\"col\"> and optional <caption>.",
+      "When sorted, set aria-sort on the corresponding <th> (none/ascending/descending).",
+      "If using a grid implementation, follow ARIA grid patterns (only when necessary)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Use semantic <table> for tabular data unless there is a strong reason not to.",
+      "Sorting must be indicated visually and via aria-sort.",
+      "Empty state must be clear and actionable when appropriate."
+    ],
+    "should": [
+      "Keep column alignment consistent (numbers right-aligned).",
+      "Support responsive behavior (horizontal scroll) rather than collapsing into unreadable layout."
+    ],
+    "must_not": [
+      "Do not use tables for general page layout.",
+      "Do not hide critical columns without an alternative access method."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Table background",
+      "notes": "Use surface background for table container or rows."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Row dividers/borders",
+      "notes": "Use default border for separators."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible on header controls/actions."
+    },
+    {
+      "token": "semantic.space.controlPadX",
+      "maps_to": "Cell padding",
+      "notes": "Use consistent padding tokens; compact mode can reduce to primitives.space.2/3."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic table skeleton",
+      "html": "<table><caption>Projects</caption><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Status</th></tr></thead><tbody><tr><td>Alpha</td><td>Active</td></tr></tbody></table>"
+    }
+  ]
+}
+

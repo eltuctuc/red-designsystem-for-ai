@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/tokens.schema.json",
+  "title": "Design Tokens (subset, DS v1)",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "$schema": { "type": "string" },
+    "since": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["stable", "beta", "experimental", "deprecated"]
+    },
+    "primitives": { "$ref": "#/$defs/tokenTree" },
+    "semantic": { "$ref": "#/$defs/tokenTree" }
+  },
+  "$defs": {
+    "tokenNode": {
+      "type": "object",
+      "required": ["$value"],
+      "properties": {
+        "$type": { "type": "string" },
+        "$value": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "boolean" }
+          ]
+        },
+        "$description": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "tokenTree": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          { "$ref": "#/$defs/tokenNode" },
+          { "$ref": "#/$defs/tokenTree" }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "navbar",
+  "title": "Navbar",
+  "description": "Top-level application/header navigation container. Prefer semantic <header> + <nav>.",
+  "anatomy": {
+    "parts": ["root", "brand", "nav", "item", "actions", "search", "toggle"],
+    "slots": ["brand", "nav", "actions"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "default",
+      "enum": ["default", "transparent", "dense"],
+      "description": "Layout density and background treatment."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Sticks to top on scroll."
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on links/actions.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "navigate",
+      "description": "User activates a nav item."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "All nav items must be reachable with Tab.",
+      "Provide a skip link to main content (recommended)."
+    ],
+    "aria": [
+      "Use <nav aria-label=\"Primary\"> for the primary navigation region.",
+      "Indicate current page with aria-current=\"page\" on the active link."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Navigation must be usable with keyboard only.",
+      "Current page must be indicated (aria-current + visual)."
+    ],
+    "should": [
+      "Include a skip link to main content at the top of the page.",
+      "Keep primary nav items limited; use overflow menu for long lists."
+    ],
+    "must_not": [
+      "Do not hide focus outlines in the header."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Header background",
+      "notes": "Default header background in light/dark themes."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Bottom divider",
+      "notes": "Optional bottom border for separation."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic HTML reference",
+      "html": "<header><a href=\"#main\">Skip to content</a><nav aria-label=\"Primary\"><a href=\"/\" aria-current=\"page\">Home</a><a href=\"/projects\">Projects</a></nav></header>"
+    }
+  ]
+}
+

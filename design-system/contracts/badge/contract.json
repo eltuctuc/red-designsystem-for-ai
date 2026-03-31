@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "badge",
+  "title": "Badge",
+  "description": "Small status label or count. Not interactive by default.",
+  "anatomy": {
+    "parts": ["root", "label", "icon"],
+    "slots": ["icon"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "neutral",
+      "enum": ["neutral", "accent", "success", "danger"],
+      "description": "Visual intent of the badge."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "default": "md",
+      "enum": ["sm", "md"],
+      "description": "Controls padding and font size."
+    }
+  ],
+  "states": [],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "No keyboard interaction when badge is non-interactive."
+    ],
+    "aria": [
+      "If badge conveys dynamic status, ensure the surrounding context includes accessible text.",
+      "If used as a count, avoid relying on color alone (e.g. include the number)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Badge content must remain readable in both themes."
+    ],
+    "should": [
+      "Keep labels short (1–2 words) or numeric."
+    ],
+    "must_not": [
+      "Do not use badges as primary calls to action (use buttons/links)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.muted",
+      "maps_to": "Neutral background",
+      "notes": "Use muted background for neutral badges."
+    },
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Text color",
+      "notes": "Ensure contrast for all variants."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Shape",
+      "notes": "Badge can use pill-like radius; if so, reference primitives.radius.pill."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<span data-variant=\"success\">Active</span>"
+    }
+  ]
+}
+

@@ -1,0 +1,43 @@
+:root {
+  color-scheme: light dark;
+}
+
+html[data-theme="light"],
+html[data-theme="dark"] {
+  background: var(--ds-semantic-color-bg-canvas);
+  color: var(--ds-semantic-color-fg-default);
+  font-family: var(--ds-semantic-typography-body-font-family);
+  font-size: var(--ds-semantic-typography-body-font-size);
+  line-height: var(--ds-semantic-typography-body-line-height);
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.15em;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--ds-semantic-color-border-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

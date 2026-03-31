@@ -1,0 +1,126 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "search-input",
+  "title": "Search Input",
+  "description": "Text input optimized for search with clear affordances (icon, clear button). Prefer native <input type=\"search\"> when feasible.",
+  "anatomy": {
+    "parts": ["root", "label", "control", "icon", "clear-button", "helper-text", "error-text"],
+    "slots": ["icon"]
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current query value."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "default": "Search…",
+      "description": "Hint text."
+    },
+    {
+      "name": "debounceMs",
+      "type": "number",
+      "required": false,
+      "default": 200,
+      "description": "Debounce delay for live filtering (0 disables)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Validation error state (rare for search, but can exist)."
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "has-value",
+      "description": "Query is non-empty.",
+      "effects": ["Show clear button; keep hit area accessible."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; keep text readable."]
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "User types; query changes."
+    },
+    {
+      "name": "clear",
+      "description": "Clear action invoked."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Use native <input type=\"search\"> or <input> for keyboard behavior.",
+      "Esc may clear the input (optional; must be consistent and documented)."
+    ],
+    "aria": [
+      "Provide an associated label or aria-label.",
+      "Clear button must have an accessible name (e.g. \"Clear search\").",
+      "If invalid, set aria-invalid and connect error with aria-describedby."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Search input must have an accessible name.",
+      "Clear action must not remove focus unexpectedly."
+    ],
+    "should": [
+      "Debounced search should still allow explicit submit (Enter) when used for server queries.",
+      "Show a loading indicator if search triggers async results (optional)."
+    ],
+    "must_not": [
+      "Do not hide the clear action behind hover-only UI."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control background",
+      "notes": "Use surface background for search control."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control border",
+      "notes": "Default border; on focus use semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible outline/ring."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Control radius",
+      "notes": "Use consistent control radius."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<label for=\"q\">Search</label><input id=\"q\" name=\"q\" type=\"search\" placeholder=\"Search…\" />"
+    }
+  ]
+}
+

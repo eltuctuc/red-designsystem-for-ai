@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/contract.schema.json",
+  "title": "Component Contract (DS v1)",
+  "type": "object",
+  "required": ["id", "title", "props", "states", "a11y", "invariants", "token_usage"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "since": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["stable", "beta", "experimental", "deprecated"]
+    },
+    "deprecated_since": { "type": "string" },
+    "remove_in": { "type": "string" },
+    "replaced_by": { "type": "string" },
+    "links": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_patterns": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "anatomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "parts": { "type": "array", "items": { "type": "string" } },
+        "slots": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "props": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/prop" }
+    },
+    "states": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/state" }
+    },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "a11y": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyboard", "aria"],
+      "properties": {
+        "keyboard": { "type": "array", "items": { "type": "string" } },
+        "aria": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["must", "should", "must_not"],
+      "properties": {
+        "must": { "type": "array", "items": { "type": "string" } },
+        "should": { "type": "array", "items": { "type": "string" } },
+        "must_not": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "token_usage": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tokenUsage" }
+    },
+    "examples": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/example" }
+    }
+  },
+  "$defs": {
+    "prop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "required", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "type": {
+          "oneOf": [
+            { "type": "string" },
+            { "$ref": "#/$defs/typeSpec" }
+          ]
+        },
+        "required": { "type": "boolean" },
+        "default": {},
+        "enum": { "type": "array", "items": {} },
+        "description": { "type": "string" }
+      }
+    },
+    "typeSpec": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["string", "number", "boolean", "enum", "array", "object", "union", "custom"]
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description", "effects"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "effects": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "tokenUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token", "maps_to", "notes"],
+      "properties": {
+        "token": { "type": "string" },
+        "maps_to": { "type": "string" },
+        "notes": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["stable", "deprecated"]
+        },
+        "deprecated_since": { "type": "string" },
+        "replaced_by": { "type": "string" }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "html"],
+      "properties": {
+        "title": { "type": "string" },
+        "html": { "type": "string" }
+      }
+    }
+  }
+}

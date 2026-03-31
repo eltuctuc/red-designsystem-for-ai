@@ -1,0 +1,104 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "drawer",
+  "title": "Drawer / Sheet",
+  "description": "Overlay panel that slides from an edge (often mobile navigation or settings). Behaves like a dialog when modal.",
+  "anatomy": {
+    "parts": ["overlay", "container", "title", "content", "actions", "close-button"],
+    "slots": ["title", "content", "actions"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls visibility."
+    },
+    {
+      "name": "side",
+      "type": "string",
+      "required": false,
+      "default": "right",
+      "enum": ["left", "right", "bottom"],
+      "description": "Drawer edge."
+    },
+    {
+      "name": "modal",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "When true, background is inert and focus is trapped."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether ESC and overlay click close the drawer."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Drawer visible.",
+      "effects": ["Slides in; background may be inert; focus managed."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Drawer opened."
+    },
+    {
+      "name": "close",
+      "description": "Drawer closed (reason: escape/outside/close-button)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "On open, move focus into the drawer (title or first focusable).",
+      "If modal, trap focus inside; Esc closes if dismissible.",
+      "On close, return focus to the opener."
+    ],
+    "aria": [
+      "If modal, use role=\"dialog\" and aria-modal=\"true\".",
+      "Provide aria-labelledby (title) or aria-label as fallback."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Drawer must be operable by keyboard only.",
+      "Focus management must be correct (return focus on close)."
+    ],
+    "should": [
+      "Avoid drawers for complex multi-step flows; use full pages or dialogs."
+    ],
+    "must_not": [
+      "Do not allow focus behind a modal drawer."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Panel background",
+      "notes": "Use surface background for drawer container."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Elevation",
+      "notes": "Use overlay shadow for sliding panel."
+    },
+    {
+      "token": "semantic.motion.enter",
+      "maps_to": "Open motion",
+      "notes": "Use enter motion token for slide-in."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Dialog-like drawer skeleton",
+      "html": "<div role=\"dialog\" aria-modal=\"true\" aria-label=\"Menu\"><button type=\"button\">Close</button><nav aria-label=\"Mobile\">…</nav></div>"
+    }
+  ]
+}
+

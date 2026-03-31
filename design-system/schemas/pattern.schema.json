@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/pattern.schema.json",
+  "title": "Pattern / Recipe (DS v1)",
+  "type": "object",
+  "required": ["id", "title", "intent", "structure", "a11y", "validation", "token_usage"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "since": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["stable", "beta", "experimental", "deprecated"]
+    },
+    "deprecated_since": { "type": "string" },
+    "remove_in": { "type": "string" },
+    "replaced_by": { "type": "string" },
+    "links": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "intent": { "type": "array", "items": { "type": "string" } },
+    "structure": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "uses_contracts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "a11y": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyboard", "aria"],
+      "properties": {
+        "keyboard": { "type": "array", "items": { "type": "string" } },
+        "aria": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules", "error_messaging"],
+      "properties": {
+        "rules": { "type": "array", "items": { "type": "string" } },
+        "error_messaging": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "token_usage": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tokenUsage" }
+    },
+    "examples": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/example" }
+    }
+  },
+  "$defs": {
+    "tokenUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token", "maps_to", "notes"],
+      "properties": {
+        "token": { "type": "string" },
+        "maps_to": { "type": "string" },
+        "notes": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["stable", "deprecated"]
+        },
+        "deprecated_since": { "type": "string" },
+        "replaced_by": { "type": "string" }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "html"],
+      "properties": {
+        "title": { "type": "string" },
+        "html": { "type": "string" }
+      }
+    }
+  }
+}

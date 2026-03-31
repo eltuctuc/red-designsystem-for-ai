@@ -1,0 +1,54 @@
+# Search Results (`search-results`)
+
+## Intent
+- Allow users to find content quickly with clear query + filters.
+- Differentiate empty vs no-results vs error states.
+- Support keyboard-first workflows.
+
+## Uses contracts
+- `search-input`
+- `filter-bar`
+- `tabs`
+- `list`
+- `list-item`
+- `pagination`
+- `empty-state`
+- `skeleton`
+- `toast`
+- `link`
+
+## Structure
+- Header: search input + optional tabs for result types.
+- Filters: use filter bar; show active chips and reset option.
+- Results: list or table; include result count; pagination or infinite scroll (choose one).
+- No-results: suggest clearing filters or changing query; provide reset action.
+
+## A11y
+
+### Keyboard
+- Search input focus on page load only when user intent is search-focused (avoid stealing focus in general apps).
+- Results are reachable via Tab; active state is not color-only.
+
+### ARIA
+- Results region is labeled; empty state includes headings and actions.
+
+## Validation
+
+### Rules
+- Avoid jitter: debounce query updates or require explicit submit for server searches.
+- No-results state must not appear while loading.
+
+### Error messaging
+- If search fails: "Couldn’t load results. Try again."
+
+## Token usage
+
+- (none)
+
+## Examples
+
+### No results message
+
+```html
+<section aria-label="No results"><h2>No results</h2><button type="button">Reset filters</button></section>
+```

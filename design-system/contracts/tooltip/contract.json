@@ -1,0 +1,109 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "tooltip",
+  "title": "Tooltip",
+  "description": "Short helper text shown on hover/focus. Not interactive; avoid tooltips for essential information.",
+  "anatomy": {
+    "parts": ["root", "trigger", "content", "arrow"],
+    "slots": ["trigger", "content"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Controls visibility."
+    },
+    {
+      "name": "placement",
+      "type": "string",
+      "required": false,
+      "default": "top",
+      "enum": ["top", "right", "bottom", "left"],
+      "description": "Preferred placement relative to trigger."
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "required": false,
+      "default": 400,
+      "description": "Delay before showing (ms)."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Tooltip visible.",
+      "effects": ["Shows helper text near trigger."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on trigger.",
+      "effects": ["Trigger shows focus ring; tooltip may show on focus."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Tooltip opened."
+    },
+    {
+      "name": "close",
+      "description": "Tooltip closed."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Tooltip should appear on focus and disappear on blur.",
+      "Esc may dismiss the tooltip (optional but recommended)."
+    ],
+    "aria": [
+      "Tooltip content uses role=\"tooltip\".",
+      "Trigger references tooltip via aria-describedby (when tooltip is available).",
+      "Do not move focus into tooltip."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Tooltip must not contain interactive elements.",
+      "Tooltip must not steal focus."
+    ],
+    "should": [
+      "Keep tooltip copy short (1 sentence).",
+      "Avoid tooltips on mobile-only experiences; provide inline help instead."
+    ],
+    "must_not": [
+      "Do not use tooltip to display critical information required to complete a task."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Tooltip background",
+      "notes": "Use surface background; may need stronger contrast for small text."
+    },
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Tooltip text",
+      "notes": "Ensure readable contrast."
+    },
+    {
+      "token": "semantic.shadow.surface",
+      "maps_to": "Elevation",
+      "notes": "Subtle shadow for tooltips."
+    },
+    {
+      "token": "semantic.motion.hover",
+      "maps_to": "Show/hide motion",
+      "notes": "Use fast motion token."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA tooltip skeleton",
+      "html": "<button type=\"button\" aria-describedby=\"tip-1\">i</button><div id=\"tip-1\" role=\"tooltip\" hidden>More information.</div>"
+    }
+  ]
+}
+

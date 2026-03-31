@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "context-menu",
+  "title": "Context Menu",
+  "description": "Menu opened via right-click or context key. Similar to dropdown-menu but has different trigger semantics.",
+  "anatomy": {
+    "parts": ["root", "target", "content", "item", "separator", "label"],
+    "slots": ["content", "item"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Controls visibility."
+    },
+    {
+      "name": "closeOnSelect",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Close after selection."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Menu visible at pointer location.",
+      "effects": ["Content positioned near the pointer; stays within viewport."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Menu opened."
+    },
+    {
+      "name": "close",
+      "description": "Menu closed."
+    },
+    {
+      "name": "select",
+      "description": "Item selected."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Context menu can be opened via Shift+F10 or the Context Menu key (recommended).",
+      "Arrow keys navigate items; Enter selects; Esc closes and returns focus to target."
+    ],
+    "aria": [
+      "Menu uses role=\"menu\" and items role=\"menuitem\" patterns.",
+      "Target should manage focus; do not steal focus permanently."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Context menu must be accessible without mouse (keyboard open supported).",
+      "Closing returns focus to the target."
+    ],
+    "should": [
+      "Keep actions relevant to the target context."
+    ],
+    "must_not": [
+      "Do not hide essential actions only in context menu."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Menu background",
+      "notes": "Use surface background for menu panel."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Elevation",
+      "notes": "Use overlay shadow for floating menus."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA menu skeleton",
+      "html": "<div tabindex=\"0\" aria-label=\"Item\">Right click me</div><div role=\"menu\" hidden><button role=\"menuitem\" type=\"button\">Rename</button></div>"
+    }
+  ]
+}
+

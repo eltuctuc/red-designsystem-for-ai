@@ -1,0 +1,114 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "slider",
+  "title": "Slider",
+  "description": "Continuous or discrete value control. Use native <input type=\"range\"> for prototypes when possible.",
+  "anatomy": {
+    "parts": ["root", "label", "track", "range", "thumb", "value", "helper-text", "error-text"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "required": false,
+      "description": "Current value."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "default": 0,
+      "description": "Minimum value."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "default": 100,
+      "description": "Maximum value."
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "description": "Step size."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on thumb.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; prevent changes."]
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "Value changes (live)."
+    },
+    {
+      "name": "change",
+      "description": "Value committed."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Arrow keys adjust value; PageUp/Down adjust larger steps (native range behavior).",
+      "Tab focuses the control."
+    ],
+    "aria": [
+      "Use native input type=\"range\" when possible.",
+      "If custom slider, use role=\"slider\" and expose aria-valuemin/max/now plus accessible name."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Value must be available to assistive tech (native or aria).",
+      "Label must be associated with control."
+    ],
+    "should": [
+      "Show current value near the control (optional)."
+    ],
+    "must_not": [
+      "Do not implement a custom slider without strong reasons; native range is usually sufficient for prototypes."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.muted",
+      "maps_to": "Track",
+      "notes": "Muted background for track."
+    },
+    {
+      "token": "semantic.color.bg.accent",
+      "maps_to": "Range fill",
+      "notes": "Accent fill for selected range."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use focus token for thumb focus-visible."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Native range input reference",
+      "html": "<label for=\"s\">Volume</label><input id=\"s\" type=\"range\" min=\"0\" max=\"100\" />"
+    }
+  ]
+}
+

@@ -1,0 +1,111 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "file-upload",
+  "title": "File Upload",
+  "description": "File selection and upload flow. Prefer native <input type=\"file\">, optionally enhanced with dropzone UI.",
+  "anatomy": {
+    "parts": ["root", "label", "control", "dropzone", "file-list", "file-item", "remove", "helper-text", "error-text", "progress"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "accept",
+      "type": "string",
+      "required": false,
+      "description": "Accepted file types (accept attribute)."
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Allow multiple files."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "maxSizeBytes",
+      "type": "number",
+      "required": false,
+      "description": "Maximum allowed file size."
+    }
+  ],
+  "states": [
+    {
+      "name": "drag-over",
+      "description": "User drags files over dropzone.",
+      "effects": ["Highlight dropzone; keep copy readable."]
+    },
+    {
+      "name": "uploading",
+      "description": "Upload in progress.",
+      "effects": ["Show per-file progress; disable destructive actions if needed."]
+    },
+    {
+      "name": "error",
+      "description": "Validation or upload failure.",
+      "effects": ["Show error text; allow retry/remove."]
+    }
+  ],
+  "events": [
+    {
+      "name": "select",
+      "description": "Files selected."
+    },
+    {
+      "name": "remove",
+      "description": "File removed."
+    },
+    {
+      "name": "upload",
+      "description": "Upload started/completed."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Selection via native file input is keyboard accessible by default.",
+      "If dropzone is clickable, it must be a <button> or have button semantics and be focusable."
+    ],
+    "aria": [
+      "Provide clear instructions and accepted formats in helper text.",
+      "Progress uses progress contract (aria-valuenow for determinate)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "File selection must work without drag & drop.",
+      "Errors must be actionable (what failed, what to do next)."
+    ],
+    "should": [
+      "Show selected files list with remove action.",
+      "Show upload progress per file for long uploads."
+    ],
+    "must_not": [
+      "Do not block the whole UI during upload; scope busy state to the upload area."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Dropzone background",
+      "notes": "Use surface background for dropzone."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Dropzone border",
+      "notes": "Use default border; focus uses semantic.color.border.focus."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Native file input reference",
+      "html": "<label for=\"f\">Upload</label><input id=\"f\" type=\"file\" />"
+    }
+  ]
+}
+

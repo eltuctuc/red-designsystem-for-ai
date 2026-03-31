@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "app-shell",
+  "title": "App Shell",
+  "description": "Layout contract for common application structure (navbar + sidebar + main + optional footer). Not a component implementation.",
+  "anatomy": {
+    "parts": ["root", "header", "sidebar", "main", "footer", "content"],
+    "slots": ["header", "sidebar", "main", "footer"]
+  },
+  "props": [
+    {
+      "name": "layout",
+      "type": "string",
+      "required": false,
+      "default": "sidebar",
+      "enum": ["sidebar", "topnav", "minimal"],
+      "description": "Primary layout style."
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Sidebar becomes drawer/overlay on small screens."
+    }
+  ],
+  "states": [
+    {
+      "name": "sidebar-collapsed",
+      "description": "Sidebar in rail mode.",
+      "effects": ["Sidebar reduced width; tooltips/labels handled."]
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Skip link to main content is present and first focusable element."
+    ],
+    "aria": [
+      "Use semantic landmarks: <header>, <nav>, <main>, <footer>.",
+      "Main content has an id that skip link targets."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Landmark structure must be correct and consistent.",
+      "Responsive layout must not trap focus when sidebar becomes drawer."
+    ],
+    "should": [
+      "Keep main content width readable; avoid overly wide text lines."
+    ],
+    "must_not": [
+      "Do not create multiple <main> landmarks."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.space.pagePad",
+      "maps_to": "Page padding",
+      "notes": "Use page padding token for main content spacing."
+    },
+    {
+      "token": "semantic.color.bg.canvas",
+      "maps_to": "App background",
+      "notes": "Canvas background for the overall page."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Landmark skeleton",
+      "html": "<a href=\"#main\">Skip to content</a><header>…</header><nav aria-label=\"Primary\">…</nav><main id=\"main\">…</main>"
+    }
+  ]
+}
+

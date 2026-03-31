@@ -1,0 +1,71 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "breadcrumb",
+  "title": "Breadcrumb",
+  "description": "Hierarchical navigation aid. Prefer semantic <nav> + ordered list.",
+  "anatomy": {
+    "parts": ["root", "list", "item", "link", "separator", "current"],
+    "slots": ["item"]
+  },
+  "props": [
+    {
+      "name": "items",
+      "type": "Array<{label:string, href?:string}>",
+      "required": true,
+      "description": "Breadcrumb items; last item is current page."
+    },
+    {
+      "name": "truncate",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "When true, collapse long paths (e.g. with an overflow menu)."
+    }
+  ],
+  "states": [],
+  "events": [
+    {
+      "name": "navigate",
+      "description": "User activates a breadcrumb link."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Native links are keyboard accessible by default.",
+      "If truncation uses an overflow menu, that menu must be keyboard operable."
+    ],
+    "aria": [
+      "Use <nav aria-label=\"Breadcrumb\">.",
+      "Mark current page with aria-current=\"page\"."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Current page must be identifiable (aria-current and visual)."
+    ],
+    "should": [
+      "Use concise labels; avoid repeating the current page title elsewhere if redundant."
+    ],
+    "must_not": [
+      "Do not use breadcrumb as the only navigation method."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.fg.muted",
+      "maps_to": "Separator/secondary text",
+      "notes": "Use muted foreground for separators."
+    },
+    {
+      "token": "semantic.space.stackGap",
+      "maps_to": "Item spacing",
+      "notes": "Prefer semantic spacing tokens for gaps; map to primitives as needed."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic HTML reference",
+      "html": "<nav aria-label=\"Breadcrumb\"><ol><li><a href=\"/\">Home</a></li><li><a href=\"/projects\">Projects</a></li><li aria-current=\"page\">Alpha</li></ol></nav>"
+    }
+  ]
+}

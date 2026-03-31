@@ -1,0 +1,128 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "link",
+  "title": "Link",
+  "description": "Navigation to a resource. Prefer native <a href> for correct semantics and expected browser behavior.",
+  "anatomy": {
+    "parts": ["root", "label", "icon-leading", "icon-trailing"],
+    "slots": ["icon-leading", "icon-trailing"]
+  },
+  "props": [
+    {
+      "name": "href",
+      "type": "string",
+      "required": true,
+      "description": "Destination URL."
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "required": false,
+      "description": "Target browsing context (e.g. _blank)."
+    },
+    {
+      "name": "rel",
+      "type": "string",
+      "required": false,
+      "description": "Relationship attribute; required for security when using target=_blank."
+    },
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "default",
+      "enum": ["default", "muted", "accent", "danger"],
+      "description": "Visual intent of the link."
+    },
+    {
+      "name": "underline",
+      "type": "string",
+      "required": false,
+      "default": "auto",
+      "enum": ["auto", "always", "never"],
+      "description": "Underline behavior; avoid relying on color alone to indicate links."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "When true, link is non-interactive (avoid if possible; prefer not rendering a link)."
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "description": "Pointer hover.",
+      "effects": ["Underline and/or subtle color change within motion rules."]
+    },
+    {
+      "name": "visited",
+      "description": "Visited link state.",
+      "effects": ["Optional visited styling; must remain readable in both themes."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["No navigation; style reflects disabled state."]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "description": "Activates navigation."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Enter activates the link (native behavior).",
+      "Tab focuses the link; Shift+Tab reverses."
+    ],
+    "aria": [
+      "Use <a href> for real navigation.",
+      "If you need a button-like action, use <button> instead of a link."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Links must be distinguishable without relying on color alone (underline or other affordance).",
+      "Focus indicator must be visible."
+    ],
+    "should": [
+      "If target is _blank, set rel=\"noopener noreferrer\" (or equivalent) for security.",
+      "Keep link text descriptive (avoid “click here”)."
+    ],
+    "must_not": [
+      "Do not disable links by removing href while keeping them focusable; if disabled, make them unfocusable and clearly styled."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Default link color",
+      "notes": "Default links can use fg.default with underline; accent links use semantic.color.bg.accent or a derived token in future."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible outline/ring."
+    },
+    {
+      "token": "semantic.motion.hover",
+      "maps_to": "Hover transition",
+      "notes": "Use fast motion token for underline/color transition."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<a href=\"/projects\">Projects</a>"
+    }
+  ]
+}
+

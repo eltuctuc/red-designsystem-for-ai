@@ -1,0 +1,111 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "date-picker",
+  "title": "Date Picker (Spec-only)",
+  "description": "Date selection control. Prefer native <input type=\"date\"> for prototypes when acceptable; otherwise follow a11y calendar patterns.",
+  "anatomy": {
+    "parts": ["root", "label", "input", "trigger", "popover", "calendar", "day", "month-nav", "helper-text", "error-text"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Selected date in ISO format (YYYY-MM-DD)."
+    },
+    {
+      "name": "min",
+      "type": "string",
+      "required": false,
+      "description": "Minimum date (YYYY-MM-DD)."
+    },
+    {
+      "name": "max",
+      "type": "string",
+      "required": false,
+      "description": "Maximum date (YYYY-MM-DD)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Validation error state."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Calendar popover open.",
+      "effects": ["Popover positioned; focus management consistent with popover/dialog rules."]
+    },
+    {
+      "name": "invalid",
+      "description": "Error state.",
+      "effects": ["Show error text and aria-invalid; do not rely on color alone."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Selected date changes."
+    },
+    {
+      "name": "open",
+      "description": "Calendar opened."
+    },
+    {
+      "name": "close",
+      "description": "Calendar closed."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If using native input type=\"date\", rely on platform behavior.",
+      "If using custom calendar: Arrow keys move day focus; Enter selects; Esc closes."
+    ],
+    "aria": [
+      "Label must be associated with the input.",
+      "If custom calendar, follow ARIA grid/calendar patterns; provide aria-live updates for month changes where necessary."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Use native date input when prototype constraints allow.",
+      "If custom, keyboard navigation must be complete and documented."
+    ],
+    "should": [
+      "Show selected date in a clear format; allow manual typing with validation."
+    ],
+    "must_not": [
+      "Do not create a custom date picker without strong reasons; it is easy to get a11y wrong."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control and popover background",
+      "notes": "Use surface background for input and calendar popover."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Popover elevation",
+      "notes": "Use overlay shadow for calendar."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Native date input reference",
+      "html": "<label for=\"d\">Due date</label><input id=\"d\" type=\"date\" />"
+    }
+  ]
+}
+

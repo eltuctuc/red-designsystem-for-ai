@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "inline-error",
+  "title": "Inline Error",
+  "description": "Small error message attached to a control or section. Used with form-field; must be linked via aria-describedby.",
+  "anatomy": {
+    "parts": ["root", "icon", "message"],
+    "slots": ["icon"]
+  },
+  "props": [
+    {
+      "name": "message",
+      "type": "string",
+      "required": true,
+      "description": "Error text. Starts with the fix."
+    }
+  ],
+  "states": [],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Inline error is not interactive."
+    ],
+    "aria": [
+      "Error element has an id and is referenced by aria-describedby on the control.",
+      "Control uses aria-invalid=\"true\" when error is present."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Error copy is actionable and concise.",
+      "Do not rely on color alone; include text and optionally an icon."
+    ],
+    "should": [
+      "Avoid shifting layout drastically; reserve space when possible."
+    ],
+    "must_not": [
+      "Do not show technical error codes to end users."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.state.danger.bg",
+      "maps_to": "Error accent",
+      "notes": "Use danger tokens sparingly (e.g. icon)."
+    },
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Text",
+      "notes": "Keep error text readable; avoid low-contrast red text."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Error message linked via aria-describedby",
+      "html": "<input aria-invalid=\"true\" aria-describedby=\"err-1\" /><p id=\"err-1\">Enter a valid email address.</p>"
+    }
+  ]
+}
+

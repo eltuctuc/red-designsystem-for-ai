@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "dashboard-detail",
+  "title": "Dashboard Detail (Drilldown)",
+  "intent": [
+    "Provide a detailed view behind a KPI tile or chart.",
+    "Keep context (time range, filters) consistent with overview.",
+    "Support comparisons and export (optional)."
+  ],
+  "uses_contracts": ["breadcrumb", "filter-bar", "chart-container", "table", "pagination", "empty-state", "skeleton", "toast", "link"],
+  "structure": [
+    "Top: breadcrumb/back link + title + time range context.",
+    "Filters: filter bar for drilldown facets.",
+    "Main: chart(s) with summaries + detail table/list underneath.",
+    "Errors: section-level fallback with retry; toast for transient errors."
+  ],
+  "a11y": {
+    "keyboard": [
+      "All controls reachable; chart summaries accessible.",
+      "Table sorting and pagination are keyboard operable."
+    ],
+    "aria": [
+      "Breadcrumb uses aria-current on current page; tables use aria-sort."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Keep time range visible and consistent across sections.",
+      "Avoid overwhelming with many charts; prefer a clear narrative."
+    ],
+    "error_messaging": [
+      "Failures should be actionable (retry/change filters)."
+    ]
+  },
+  "token_usage": [],
+  "examples": [
+    {
+      "title": "Drilldown layout",
+      "html": "<main><nav aria-label=\"Breadcrumb\">…</nav><h1>Active users</h1><section aria-label=\"Chart\">…</section><section aria-label=\"Breakdown\">…</section></main>"
+    }
+  ]
+}
+

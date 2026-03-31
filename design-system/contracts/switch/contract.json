@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "switch",
+  "title": "Switch",
+  "description": "Binary on/off toggle for immediate settings. Prefer <button role=\"switch\"> or checkbox semantics depending on implementation constraints.",
+  "anatomy": {
+    "parts": ["root", "track", "thumb", "label", "description"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Current on/off state."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    }
+  ],
+  "states": [
+    {
+      "name": "checked",
+      "description": "On state.",
+      "effects": ["Track uses accent color; thumb moves to on position."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; keep label readable."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Toggles state."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Space toggles when focused (common switch behavior).",
+      "Tab focuses the switch; Shift+Tab reverses."
+    ],
+    "aria": [
+      "If not using a native checkbox, use role=\"switch\" and set aria-checked to true/false.",
+      "Provide an accessible name via associated label or aria-label."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Switch must clearly communicate on/off state via position and/or icon/text.",
+      "Focus indicator must be visible."
+    ],
+    "should": [
+      "Use switch for immediate settings; use checkbox for multi-select in forms."
+    ],
+    "must_not": [
+      "Do not use switch for navigation or mutually exclusive options."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.accent",
+      "maps_to": "On track background",
+      "notes": "Use accent color in on state."
+    },
+    {
+      "token": "semantic.color.bg.muted",
+      "maps_to": "Off track background",
+      "notes": "Use muted surface for off state."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible outline/ring."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA switch reference",
+      "html": "<button type=\"button\" role=\"switch\" aria-checked=\"false\">Notifications</button>"
+    }
+  ]
+}
+

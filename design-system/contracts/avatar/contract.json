@@ -1,0 +1,86 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "avatar",
+  "title": "Avatar",
+  "description": "User or entity representation (image + fallback initials/icon).",
+  "anatomy": {
+    "parts": ["root", "image", "fallback"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "src",
+      "type": "string",
+      "required": false,
+      "description": "Image URL."
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "required": false,
+      "description": "Alt text (required if the avatar conveys information)."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Used for initials fallback and accessible labeling."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "default": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Controls dimensions."
+    }
+  ],
+  "states": [
+    {
+      "name": "image-error",
+      "description": "Image fails to load.",
+      "effects": ["Show initials or icon fallback."]
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "No keyboard interaction when avatar is non-interactive."
+    ],
+    "aria": [
+      "If purely decorative, use empty alt=\"\".",
+      "If avatar conveys identity, provide meaningful alt text (e.g. person name)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Fallback must be present (initials or icon).",
+      "Avatar must remain recognizable at small sizes."
+    ],
+    "should": [
+      "Use circular shape by default for people."
+    ],
+    "must_not": [
+      "Do not rely on avatar alone to identify a user (include name in text where relevant)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.muted",
+      "maps_to": "Fallback background",
+      "notes": "Use muted background for fallback."
+    },
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Fallback text",
+      "notes": "Initials contrast must be sufficient."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<img src=\"/avatar.png\" alt=\"Alex Doe\" width=\"32\" height=\"32\" />"
+    }
+  ]
+}
+

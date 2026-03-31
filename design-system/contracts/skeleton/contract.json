@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "skeleton",
+  "title": "Skeleton / Loading Placeholder",
+  "description": "Non-content placeholder shown while loading. Must avoid being announced as real content; keep layout stable to reduce jank.",
+  "anatomy": {
+    "parts": ["root", "block"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "block",
+      "enum": ["text", "block", "circle", "table-row"],
+      "description": "Shape preset."
+    },
+    {
+      "name": "animated",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether shimmer/pulse is animated (respect prefers-reduced-motion)."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "Optional width hint (e.g. \"120px\" or \"60%\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "Optional height hint (e.g. \"16px\")."
+    }
+  ],
+  "states": [
+    {
+      "name": "animated",
+      "description": "Animation enabled.",
+      "effects": ["Pulse/shimmer; disable animation when prefers-reduced-motion is set."]
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Skeleton is not interactive."
+    ],
+    "aria": [
+      "Skeleton blocks should be aria-hidden=\"true\".",
+      "Apply aria-busy=\"true\" to the nearest meaningful container while loading."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Skeleton must not be focusable and must not be announced as content.",
+      "Loading states should keep layout stable (avoid major shifts)."
+    ],
+    "should": [
+      "Respect prefers-reduced-motion and reduce/disable shimmer.",
+      "Use skeleton only for short loading; for long loads, show progress or messaging."
+    ],
+    "must_not": [
+      "Do not show skeleton and real content at the same time for the same area."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.muted",
+      "maps_to": "Placeholder background",
+      "notes": "Use muted background for skeleton blocks."
+    },
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Animation timing",
+      "notes": "Use UI motion token for pulse/shimmer; disable for reduced motion."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Shape radius",
+      "notes": "Use control radius for skeleton blocks unless circle variant."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Aria-hidden skeleton block",
+      "html": "<div aria-busy=\"true\"><div aria-hidden=\"true\" style=\"height:16px;width:120px\"></div></div>"
+    }
+  ]
+}
+

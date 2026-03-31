@@ -1,0 +1,85 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "metric",
+  "title": "Metric",
+  "description": "Atomic KPI display (label + value + optional change). Used inside stat cards, tables, or detail pages.",
+  "anatomy": {
+    "parts": ["root", "label", "value", "unit", "change", "trend-icon"],
+    "slots": ["trend-icon"]
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Metric label."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "Formatted value."
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "required": false,
+      "description": "Optional unit (e.g. \"ms\", \"%\", \"€\")."
+    },
+    {
+      "name": "change",
+      "type": "string",
+      "required": false,
+      "description": "Optional change (e.g. \"+12%\"), include sign."
+    },
+    {
+      "name": "trend",
+      "type": "string",
+      "required": false,
+      "default": "neutral",
+      "enum": ["neutral", "up", "down"],
+      "description": "Direction for styling and iconography."
+    }
+  ],
+  "states": [],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "No keyboard interaction for a non-interactive metric."
+    ],
+    "aria": [
+      "If change is indicated, ensure it is included in the accessible text (not only via color/icon)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Metric must be readable and scannable.",
+      "Trend must not rely on color alone (include sign, arrow, or words)."
+    ],
+    "should": [
+      "Use tabular numbers for columns of metrics (implementation-specific)."
+    ],
+    "must_not": [
+      "Do not animate numbers excessively; avoid distracting count-up in dashboards."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Value color",
+      "notes": "Use default foreground for the primary value."
+    },
+    {
+      "token": "semantic.color.fg.muted",
+      "maps_to": "Label color",
+      "notes": "Use muted foreground for labels."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<div aria-label=\"Latency 123ms, down 3%\"><span>Latency</span><span>123</span><span>ms</span><span>-3% down</span></div>"
+    }
+  ]
+}
+

@@ -1,0 +1,129 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "dropdown-menu",
+  "title": "Dropdown Menu",
+  "description": "Menu triggered by a button (menu button pattern). Use for a list of actions; avoid for simple navigation links.",
+  "anatomy": {
+    "parts": ["root", "trigger", "content", "item", "separator", "label"],
+    "slots": ["trigger", "content", "item"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Controls menu visibility."
+    },
+    {
+      "name": "placement",
+      "type": "string",
+      "required": false,
+      "default": "bottom-start",
+      "enum": ["bottom-start", "bottom-end", "top-start", "top-end", "right-start", "left-start"],
+      "description": "Preferred placement relative to trigger."
+    },
+    {
+      "name": "closeOnSelect",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Close menu when selecting an item."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disables the trigger."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Menu is visible.",
+      "effects": ["Trigger shows expanded state; content is positioned and layered above."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on trigger or item.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Trigger is disabled.",
+      "effects": ["Trigger not interactive; style reflects disabled state."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Menu opened."
+    },
+    {
+      "name": "close",
+      "description": "Menu closed (reason: select/escape/outside)."
+    },
+    {
+      "name": "select",
+      "description": "Menu item selected (provides item id/value)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Trigger: Enter/Space opens the menu; ArrowDown should open and focus first item.",
+      "Menu: ArrowUp/ArrowDown move focus between items (roving tabindex).",
+      "Home/End jump to first/last item.",
+      "Esc closes the menu and returns focus to trigger.",
+      "Tab closes the menu and moves focus to next focusable element."
+    ],
+    "aria": [
+      "Trigger should have aria-haspopup=\"menu\" and aria-expanded reflecting open state.",
+      "Menu container uses role=\"menu\"; items use role=\"menuitem\" (or menuitemcheckbox/menuitemradio when applicable).",
+      "Disabled items use aria-disabled=\"true\" when not native <button disabled>."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Menu must be fully operable by keyboard.",
+      "Focus must be managed predictably: open focuses an item; close returns focus to trigger."
+    ],
+    "should": [
+      "Prefer simple lists of actions; keep item labels concise.",
+      "Support typeahead (optional): typing letters jumps to matching items."
+    ],
+    "must_not": [
+      "Do not use menu role for simple navigation lists; use links in a <nav> instead.",
+      "Do not trap focus inside a non-modal menu (allow Tab to escape)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Menu background",
+      "notes": "Use surface background for the menu panel."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Menu elevation",
+      "notes": "Use overlay shadow for floating surfaces."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Panel radius",
+      "notes": "Use surface radius for the menu panel."
+    },
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Open/close animation",
+      "notes": "Use UI motion token for transitions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA menu button skeleton",
+      "html": "<button type=\"button\" aria-haspopup=\"menu\" aria-expanded=\"false\" aria-controls=\"menu-1\">Actions</button><div id=\"menu-1\" role=\"menu\" hidden><button role=\"menuitem\" type=\"button\">Edit</button><button role=\"menuitem\" type=\"button\">Duplicate</button><button role=\"menuitem\" type=\"button\">Delete</button></div>"
+    }
+  ]
+}
+

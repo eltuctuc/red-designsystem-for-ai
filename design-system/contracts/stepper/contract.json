@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "stepper",
+  "title": "Stepper",
+  "description": "Multi-step flow indicator (wizard). Indicates progress across steps; can be clickable or read-only.",
+  "anatomy": {
+    "parts": ["root", "step", "indicator", "label", "description", "separator"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "steps",
+      "type": "Array<{id:string,label:string,description?:string}>",
+      "required": true,
+      "description": "List of steps."
+    },
+    {
+      "name": "activeStepId",
+      "type": "string",
+      "required": true,
+      "description": "Current step id."
+    },
+    {
+      "name": "interactive",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether steps can be clicked to navigate."
+    }
+  ],
+  "states": [
+    {
+      "name": "complete",
+      "description": "Completed step.",
+      "effects": ["Shows checkmark or completed styling."]
+    },
+    {
+      "name": "active",
+      "description": "Current step.",
+      "effects": ["Active indicator; accessible current state."]
+    },
+    {
+      "name": "upcoming",
+      "description": "Future steps.",
+      "effects": ["Neutral styling."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Active step changes (if interactive)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If interactive, each step is focusable and activatable via Enter/Space.",
+      "Tab order follows visual order."
+    ],
+    "aria": [
+      "Current step can be marked with aria-current=\"step\" on its control.",
+      "If stepper is purely visual, ensure the flow has headings so screen readers understand context."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Active step must be identifiable without relying on color alone."
+    ],
+    "should": [
+      "Show step numbers or icons to support scanning."
+    ],
+    "must_not": [
+      "Do not force non-linear navigation unless the flow supports it."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Separators",
+      "notes": "Use default borders for connectors."
+    },
+    {
+      "token": "semantic.color.bg.accent",
+      "maps_to": "Active indicator",
+      "notes": "Use accent for active step indicator."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Current step marking",
+      "html": "<ol><li aria-current=\"step\">Details</li><li>Billing</li><li>Confirm</li></ol>"
+    }
+  ]
+}
+

@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "form-field",
+  "title": "Form Field",
+  "description": "Wrapper contract for label + control + helper + error. Composes input/select/textarea/checkbox/radio.",
+  "anatomy": {
+    "parts": ["root", "label", "control", "helper-text", "error-text", "required-indicator"],
+    "slots": ["control"]
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Visible label."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Optional hint text."
+    },
+    {
+      "name": "errorText",
+      "type": "string",
+      "required": false,
+      "description": "Optional error message; if present sets invalid state and aria links."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Marks the field as required."
+    }
+  ],
+  "states": [
+    {
+      "name": "invalid",
+      "description": "Error text present.",
+      "effects": ["Control has aria-invalid and aria-describedby includes error id."]
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Keyboard behavior is delegated to the wrapped control."
+    ],
+    "aria": [
+      "Label is programmatically associated with control.",
+      "Helper and error text are linked via aria-describedby.",
+      "Required is indicated via native required attribute or aria-required (if non-native)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Label association must be correct for all controls.",
+      "Error and helper messages must be linked via aria-describedby."
+    ],
+    "should": [
+      "Reserve space for helper/error text to reduce layout shift."
+    ],
+    "must_not": [
+      "Do not show both helper and error with the same id; keep them distinct."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Label text",
+      "notes": "Labels use default foreground."
+    },
+    {
+      "token": "semantic.color.fg.muted",
+      "maps_to": "Helper text",
+      "notes": "Helper uses muted foreground."
+    },
+    {
+      "token": "semantic.color.state.danger.bg",
+      "maps_to": "Error accent",
+      "notes": "Use danger accent for icon/indicator, not low-contrast text."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Wrapper skeleton",
+      "html": "<label for=\"f1\">Email</label><input id=\"f1\" aria-describedby=\"f1-help f1-err\" /><p id=\"f1-help\">We never share your email.</p><p id=\"f1-err\">Enter a valid email address.</p>"
+    }
+  ]
+}
+

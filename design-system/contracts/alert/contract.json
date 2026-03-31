@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "alert",
+  "title": "Alert",
+  "description": "Inline message to inform users about a status (info/success/warning/danger). Not transient; used inside page flow.",
+  "anatomy": {
+    "parts": ["root", "icon", "title", "description", "actions", "dismiss"],
+    "slots": ["icon", "actions"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "info",
+      "enum": ["info", "success", "warning", "danger"],
+      "description": "Status intent."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Short summary."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether the alert can be dismissed."
+    }
+  ],
+  "states": [
+    {
+      "name": "dismissed",
+      "description": "Alert hidden after dismissal.",
+      "effects": ["Removed from layout or collapsed."]
+    }
+  ],
+  "events": [
+    {
+      "name": "dismiss",
+      "description": "User dismissed the alert."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If dismissible, dismiss button is reachable via Tab and operable with Enter/Space."
+    ],
+    "aria": [
+      "Use role=\"alert\" for critical/danger messages that must be announced immediately.",
+      "Use role=\"status\" for non-urgent informational messages."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Alert must be understandable without relying on color alone (icon + text).",
+      "Actions (if present) must be clear and limited."
+    ],
+    "should": [
+      "Keep copy concise and actionable."
+    ],
+    "must_not": [
+      "Do not use alerts as a replacement for form field errors (use inline-error/form-field)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.state.info.bg",
+      "maps_to": "Info background",
+      "notes": "Use state tokens for variants (info/success/warning/danger)."
+    },
+    {
+      "token": "semantic.color.state.info.fg",
+      "maps_to": "Info text/icon",
+      "notes": "Ensure contrast in both themes."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Container radius",
+      "notes": "Use surface radius for alert container."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Status role reference",
+      "html": "<div role=\"status\"><strong>Saved.</strong> Your changes are live.</div>"
+    }
+  ]
+}
+

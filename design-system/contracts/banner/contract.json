@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "banner",
+  "title": "Banner",
+  "description": "Prominent message at the top of a page or section (announcement, maintenance, policy). Typically dismissible and persistent across navigation.",
+  "anatomy": {
+    "parts": ["root", "icon", "content", "actions", "dismiss"],
+    "slots": ["icon", "actions"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "info",
+      "enum": ["info", "success", "warning", "danger"],
+      "description": "Status intent."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether the banner can be dismissed."
+    },
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Sticks to the top when scrolling."
+    }
+  ],
+  "states": [
+    {
+      "name": "dismissed",
+      "description": "Hidden after dismissal.",
+      "effects": ["Removed or collapsed; dismissal may be persisted."]
+    }
+  ],
+  "events": [
+    {
+      "name": "dismiss",
+      "description": "User dismissed the banner."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Dismiss button and any actions are reachable via Tab."
+    ],
+    "aria": [
+      "Use role=\"status\" by default; use role=\"alert\" only for urgent/critical announcements."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Banner must not cover key navigation without a clear way to dismiss or skip.",
+      "Message must be understandable without relying on color alone."
+    ],
+    "should": [
+      "Persist dismissal per user/session when appropriate."
+    ],
+    "must_not": [
+      "Do not stack multiple banners; queue or combine messages."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.state.info.bg",
+      "maps_to": "Banner background",
+      "notes": "Use state tokens per variant."
+    },
+    {
+      "token": "semantic.color.state.info.fg",
+      "maps_to": "Text/icon",
+      "notes": "Ensure contrast for all variants."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Divider/border",
+      "notes": "Optional border to separate from content."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Top-of-page banner",
+      "html": "<div role=\"status\"><span>Maintenance tonight at 22:00.</span><button type=\"button\">Dismiss</button></div>"
+    }
+  ]
+}
+

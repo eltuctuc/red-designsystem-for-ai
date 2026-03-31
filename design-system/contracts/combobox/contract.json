@@ -1,0 +1,143 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "combobox",
+  "title": "Combobox",
+  "description": "Searchable select/autocomplete. Follow WAI-ARIA combobox patterns; use native <datalist> only for simple cases.",
+  "anatomy": {
+    "parts": ["root", "label", "input", "toggle", "listbox", "option", "helper-text", "error-text"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Selected value (id or label depending on data model)."
+    },
+    {
+      "name": "inputValue",
+      "type": "string",
+      "required": false,
+      "description": "Current text input value."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether the listbox is open."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Validation error state."
+    },
+    {
+      "name": "filterMode",
+      "type": "string",
+      "required": false,
+      "default": "contains",
+      "enum": ["contains", "startsWith"],
+      "description": "How options are filtered as the user types."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Listbox visible.",
+      "effects": ["Listbox is positioned and layered; active option highlighted."]
+    },
+    {
+      "name": "active-option",
+      "description": "Option is active (aria-activedescendant).",
+      "effects": ["Highlight active option; keep text readable."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on input/toggle.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "invalid",
+      "description": "Error state.",
+      "effects": ["Show error text; set aria-invalid; avoid color-only signal."]
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "User types; filter updates."
+    },
+    {
+      "name": "select",
+      "description": "User selects an option."
+    },
+    {
+      "name": "open",
+      "description": "Listbox opened."
+    },
+    {
+      "name": "close",
+      "description": "Listbox closed."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "ArrowDown/ArrowUp moves active option; Enter selects active option.",
+      "Esc closes the listbox; if closed, Esc clears input only if that behavior is explicit.",
+      "Tab moves focus out; listbox closes on blur (recommended)."
+    ],
+    "aria": [
+      "Input uses role=\"combobox\" with aria-expanded and aria-controls pointing to listbox.",
+      "Listbox uses role=\"listbox\"; options use role=\"option\".",
+      "Use aria-activedescendant on the input to indicate the active option."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Combobox must be usable with keyboard and screen readers.",
+      "Focus stays on the input while navigating options (common pattern)."
+    ],
+    "should": [
+      "Support empty state (“No results”).",
+      "Support loading state for async options (optional)."
+    ],
+    "must_not": [
+      "Do not implement combobox as a menu; use listbox roles and combobox pattern.",
+      "Do not trap focus inside the listbox."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Input and listbox background",
+      "notes": "Use surface background for controls and floating list."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Borders",
+      "notes": "Default borders; focus uses semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Listbox elevation",
+      "notes": "Use overlay shadow for floating list."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA combobox skeleton",
+      "html": "<label for=\"cb\">Search</label><input id=\"cb\" role=\"combobox\" aria-expanded=\"false\" aria-controls=\"cb-list\" aria-autocomplete=\"list\" /><div id=\"cb-list\" role=\"listbox\" hidden><div id=\"opt-1\" role=\"option\">Apple</div><div id=\"opt-2\" role=\"option\">Banana</div></div>"
+    }
+  ]
+}
+

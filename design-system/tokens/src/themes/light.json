@@ -1,0 +1,122 @@
+{
+  "$schema": "../../../schemas/tokens.schema.json",
+  "semantic": {
+    "color": {
+      "bg": {
+        "canvas": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+        "surface": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+        "muted": { "$type": "color", "$value": "{primitives.color.neutral.50}" },
+        "accent": { "$type": "color", "$value": "{primitives.color.blue.600}" },
+        "danger": { "$type": "color", "$value": "{primitives.color.red.600}" },
+        "success": { "$type": "color", "$value": "{primitives.color.green.600}" }
+      },
+      "fg": {
+        "default": { "$type": "color", "$value": "{primitives.color.neutral.900}" },
+        "muted": { "$type": "color", "$value": "{primitives.color.neutral.600}" },
+        "onAccent": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+        "onDanger": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+        "onSuccess": { "$type": "color", "$value": "{primitives.color.neutral.0}" }
+      },
+      "border": {
+        "default": { "$type": "color", "$value": "{primitives.color.neutral.200}" },
+        "strong": { "$type": "color", "$value": "{primitives.color.neutral.300}" },
+        "focus": { "$type": "color", "$value": "{primitives.color.blue.500}" }
+      },
+      "state": {
+        "info": {
+          "bg": { "$type": "color", "$value": "{primitives.color.blue.600}" },
+          "fg": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+          "border": { "$type": "color", "$value": "{primitives.color.blue.500}" }
+        },
+        "success": {
+          "bg": { "$type": "color", "$value": "{primitives.color.green.600}" },
+          "fg": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+          "border": { "$type": "color", "$value": "{primitives.color.green.500}" }
+        },
+        "warning": {
+          "bg": { "$type": "color", "$value": "{primitives.color.amber.600}" },
+          "fg": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+          "border": { "$type": "color", "$value": "{primitives.color.amber.500}" }
+        },
+        "danger": {
+          "bg": { "$type": "color", "$value": "{primitives.color.red.600}" },
+          "fg": { "$type": "color", "$value": "{primitives.color.neutral.0}" },
+          "border": { "$type": "color", "$value": "{primitives.color.red.500}" }
+        }
+      },
+      "interactive": {
+        "bg": {
+          "default": { "$type": "color", "$value": "{semantic.color.bg.surface}" },
+          "hover": { "$type": "color", "$value": "{semantic.color.bg.muted}" },
+          "active": { "$type": "color", "$value": "{primitives.color.neutral.100}" },
+          "disabled": { "$type": "color", "$value": "{semantic.color.bg.muted}" }
+        },
+        "fg": {
+          "default": { "$type": "color", "$value": "{semantic.color.fg.default}" },
+          "muted": { "$type": "color", "$value": "{semantic.color.fg.muted}" },
+          "disabled": { "$type": "color", "$value": "{semantic.color.fg.muted}" }
+        },
+        "border": {
+          "default": { "$type": "color", "$value": "{semantic.color.border.default}" },
+          "focus": { "$type": "color", "$value": "{semantic.color.border.focus}" },
+          "disabled": { "$type": "color", "$value": "{semantic.color.border.default}" }
+        }
+      },
+      "chart": {
+        "1": { "$type": "color", "$value": "{primitives.color.blue.600}" },
+        "2": { "$type": "color", "$value": "{primitives.color.green.600}" },
+        "3": { "$type": "color", "$value": "{primitives.color.amber.600}" },
+        "4": { "$type": "color", "$value": "{primitives.color.purple.600}" },
+        "5": { "$type": "color", "$value": "{primitives.color.red.600}" }
+      }
+    },
+    "radius": {
+      "control": { "$type": "dimension", "$value": "{primitives.radius.md}" },
+      "surface": { "$type": "dimension", "$value": "{primitives.radius.lg}" }
+    },
+    "space": {
+      "controlPadX": { "$type": "dimension", "$value": "{primitives.space.4}" },
+      "controlPadY": { "$type": "dimension", "$value": "{primitives.space.2}" },
+      "pagePad": { "$type": "dimension", "$value": "{primitives.space.6}" },
+      "sectionGap": { "$type": "dimension", "$value": "{primitives.space.8}" },
+      "cardPad": { "$type": "dimension", "$value": "{primitives.space.4}" },
+      "stackGap": { "$type": "dimension", "$value": "{primitives.space.4}" }
+    },
+    "shadow": {
+      "surface": { "$type": "shadow", "$value": "{primitives.shadow.sm}" },
+      "overlay": { "$type": "shadow", "$value": "{primitives.shadow.md}" }
+    },
+    "motion": {
+      "hover": { "$type": "duration", "$value": "{primitives.motion.duration.fast}" },
+      "ui": { "$type": "duration", "$value": "{primitives.motion.duration.normal}" },
+      "enter": { "$type": "duration", "$value": "{primitives.motion.duration.normal}" },
+      "exit": { "$type": "duration", "$value": "{primitives.motion.duration.fast}" }
+    },
+    "layer": {
+      "dropdown": { "$type": "number", "$value": 1000 },
+      "popover": { "$type": "number", "$value": 1100 },
+      "toast": { "$type": "number", "$value": 1200 },
+      "modal": { "$type": "number", "$value": 1300 }
+    },
+    "typography": {
+      "body": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{primitives.font.family.sans}" },
+        "fontSize": { "$type": "fontSize", "$value": "{primitives.font.size.md}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{primitives.font.weight.regular}" },
+        "lineHeight": { "$type": "lineHeight", "$value": "{primitives.font.lineHeight.normal}" }
+      },
+      "caption": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{primitives.font.family.sans}" },
+        "fontSize": { "$type": "fontSize", "$value": "{primitives.font.size.sm}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{primitives.font.weight.regular}" },
+        "lineHeight": { "$type": "lineHeight", "$value": "{primitives.font.lineHeight.normal}" }
+      },
+      "heading": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{primitives.font.family.sans}" },
+        "fontSize": { "$type": "fontSize", "$value": "{primitives.font.size.xl}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{primitives.font.weight.semibold}" },
+        "lineHeight": { "$type": "lineHeight", "$value": "{primitives.font.lineHeight.tight}" }
+      }
+    }
+  }
+}

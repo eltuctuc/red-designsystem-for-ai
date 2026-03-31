@@ -1,0 +1,99 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "toast",
+  "title": "Toast",
+  "description": "Transient feedback message. Avoid stealing focus; ensure screen reader announcement is appropriate.",
+  "anatomy": {
+    "parts": ["viewport", "toast", "title", "description", "action", "close-button", "icon"],
+    "slots": ["action", "icon"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "neutral",
+      "enum": ["neutral", "success", "danger"],
+      "description": "Visual intent."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "required": false,
+      "default": 4000,
+      "description": "Auto-dismiss time in ms (0 disables auto-dismiss)."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Shows close control."
+    }
+  ],
+  "states": [
+    {
+      "name": "enter",
+      "description": "Toast appears.",
+      "effects": ["Animate in using motion tokens."]
+    },
+    {
+      "name": "exit",
+      "description": "Toast disappears.",
+      "effects": ["Animate out using motion tokens."]
+    }
+  ],
+  "events": [
+    {
+      "name": "dismiss",
+      "description": "Toast dismissed (timeout or user)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Toasts should not steal focus.",
+      "If a toast contains an action button, it must be reachable by keyboard without disrupting user flow excessively."
+    ],
+    "aria": [
+      "Use aria-live=\"polite\" for neutral/success; consider aria-live=\"assertive\" only for critical errors.",
+      "Ensure close button has an accessible name."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Toast content must be readable and not rely on color alone.",
+      "Toasts must not block primary interactions."
+    ],
+    "should": [
+      "Limit to one or few visible toasts; queue additional messages.",
+      "Provide an action for recoverable errors (optional)."
+    ],
+    "must_not": [
+      "Do not use toasts for long-form content or required confirmations."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Container background",
+      "notes": "Use surface background for neutral toast."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Elevation",
+      "notes": "Use overlay shadow if toast overlays content."
+    },
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Animation duration",
+      "notes": "Use motion token for enter/exit."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA live region reference",
+      "html": "<div aria-live=\"polite\"><div role=\"status\">Saved successfully.</div></div>"
+    }
+  ]
+}
+

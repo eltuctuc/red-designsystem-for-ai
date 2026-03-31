@@ -1,0 +1,40 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "auth-reset-password",
+  "title": "Auth: Reset Password",
+  "intent": [
+    "Allow users to request and complete password reset securely.",
+    "Avoid leaking account existence.",
+    "Provide clear next steps and recovery."
+  ],
+  "uses_contracts": ["form-field", "input", "button", "alert", "link"],
+  "structure": [
+    "Step 1: request reset (email field) → show generic success message.",
+    "Step 2: set new password (new password field + confirm if needed).",
+    "Include link back to sign in."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Enter submits; focus moves to first invalid field."
+    ],
+    "aria": [
+      "Use autocomplete=\"email\" on request step; autocomplete=\"new-password\" on reset step."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Always show a generic success message after request (\"If an account exists...\")."
+    ],
+    "error_messaging": [
+      "Explain what to check (email inbox/spam) and how long it might take."
+    ]
+  },
+  "token_usage": [],
+  "examples": [
+    {
+      "title": "Generic success copy",
+      "html": "<div role=\"status\">If an account exists for that email, we sent a reset link.</div>"
+    }
+  ]
+}
+

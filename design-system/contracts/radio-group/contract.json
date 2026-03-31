@@ -1,0 +1,96 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "radio-group",
+  "title": "Radio Group",
+  "description": "Mutually exclusive selection. Prefer native <fieldset> + <legend> + <input type=\"radio\">.",
+  "anatomy": {
+    "parts": ["root", "legend", "option", "control", "label", "description"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Selected option value."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disables the whole group."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Marks the group as required."
+    }
+  ],
+  "states": [
+    {
+      "name": "selected",
+      "description": "Selected option.",
+      "effects": ["Show filled indicator; keep contrast in both themes."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on an option.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; keep labels readable."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Selection changes (native change event)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Arrow keys move selection within the group (native radio behavior in many browsers).",
+      "Tab focuses the selected radio or first radio."
+    ],
+    "aria": [
+      "Use <fieldset> + <legend> for group labeling whenever possible.",
+      "If non-native, use role=\"radiogroup\" and role=\"radio\" with aria-checked."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Group must have an accessible label (legend or aria-labelledby).",
+      "Exactly one option can be selected at a time."
+    ],
+    "should": [
+      "Use radio group when options are visible; use select when many options exist."
+    ],
+    "must_not": [
+      "Do not use radio group for multiple selections (use checkbox group)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control border",
+      "notes": "Default border; on focus use semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.color.bg.accent",
+      "maps_to": "Selected indicator",
+      "notes": "Use accent for selected dot."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<fieldset><legend>Plan</legend><label><input type=\"radio\" name=\"plan\" value=\"basic\" /> Basic</label><label><input type=\"radio\" name=\"plan\" value=\"pro\" /> Pro</label></fieldset>"
+    }
+  ]
+}
+

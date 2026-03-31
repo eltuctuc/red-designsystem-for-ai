@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "spinner",
+  "title": "Spinner",
+  "description": "Small loading indicator for async operations. Should not be the only indicator; use text where helpful.",
+  "anatomy": {
+    "parts": ["root", "ring"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "default": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Spinner size."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label (e.g. \"Loading\")."
+    }
+  ],
+  "states": [
+    {
+      "name": "reduced-motion",
+      "description": "prefers-reduced-motion enabled.",
+      "effects": ["Use minimal animation or a static indicator."]
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Spinner is not interactive."
+    ],
+    "aria": [
+      "If spinner is purely decorative, set aria-hidden=\"true\".",
+      "If it represents loading, add an accessible label and set aria-busy=\"true\" on the relevant container."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Respect prefers-reduced-motion.",
+      "Spinner must not be the only way to convey progress for long tasks (use progress)."
+    ],
+    "should": [
+      "Use subtle, non-distracting motion."
+    ],
+    "must_not": [
+      "Do not block interactions globally for small async tasks."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Animation timing",
+      "notes": "Use UI motion token; reduce for prefers-reduced-motion."
+    },
+    {
+      "token": "semantic.color.interactive.fg.default",
+      "maps_to": "Spinner stroke",
+      "notes": "Use readable foreground for indicator."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Aria-hidden decorative spinner",
+      "html": "<span aria-hidden=\"true\">⏳</span>"
+    }
+  ]
+}
+

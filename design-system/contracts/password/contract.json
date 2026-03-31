@@ -1,0 +1,122 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "password",
+  "title": "Password Input",
+  "description": "Password entry control (input type=\"password\") with optional reveal toggle and requirements helper text.",
+  "anatomy": {
+    "parts": ["root", "label", "control", "reveal-toggle", "helper-text", "error-text", "strength"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current value."
+    },
+    {
+      "name": "reveal",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether password is visible (toggle)."
+    },
+    {
+      "name": "autocomplete",
+      "type": "string",
+      "required": false,
+      "default": "current-password",
+      "enum": ["current-password", "new-password"],
+      "description": "Autocomplete hint."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Validation error state."
+    }
+  ],
+  "states": [
+    {
+      "name": "reveal",
+      "description": "Password visible.",
+      "effects": ["Input switches to type=\"text\"; toggle reflects state."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "invalid",
+      "description": "Error state.",
+      "effects": ["Show error text and aria-invalid; do not rely on color alone."]
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "Value changes."
+    },
+    {
+      "name": "toggleReveal",
+      "description": "Reveal toggled."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Reveal toggle is a button reachable via Tab.",
+      "Enter submits the surrounding form when appropriate."
+    ],
+    "aria": [
+      "Reveal toggle has an accessible name (\"Show password\" / \"Hide password\").",
+      "Requirements helper text is linked via aria-describedby.",
+      "Use autocomplete=\"new-password\" for sign-up and \"current-password\" for sign-in."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Password input must support password managers (autocomplete).",
+      "Reveal toggle must not expose password unexpectedly (default hidden)."
+    ],
+    "should": [
+      "Requirements are shown as helper text and validated on blur/submit.",
+      "Strength indicators are optional and must not rely on color alone."
+    ],
+    "must_not": [
+      "Do not block paste into password field (supports password managers)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control background",
+      "notes": "Use surface background for password control."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use focus token for focus-visible."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Radius",
+      "notes": "Use control radius."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Native password input",
+      "html": "<label for=\"pw\">Password</label><input id=\"pw\" type=\"password\" autocomplete=\"current-password\" />"
+    }
+  ]
+}
+

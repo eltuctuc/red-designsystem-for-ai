@@ -1,0 +1,63 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "navigation",
+  "title": "Navigation (Primary/Secondary)",
+  "intent": [
+    "Help users understand where they are and where they can go.",
+    "Support keyboard-first navigation and clear active state.",
+    "Provide a responsive default (sidebar becomes drawer on small screens)."
+  ],
+  "uses_contracts": ["navbar", "sidebar", "link", "breadcrumb", "dropdown-menu", "menu-item", "dialog"],
+  "structure": [
+    "Use <header> for the top bar and <nav> for navigation regions with clear aria-labels (Primary, Secondary).",
+    "Mark the active location with aria-current=\"page\" on the active link.",
+    "Use breadcrumbs for deep hierarchies; avoid breadcrumbs for shallow apps.",
+    "If you need overflow, use a dropdown menu (overflow/\"More\")."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Skip link to main content is present and first focusable element.",
+      "All nav items are reachable via Tab in visual order.",
+      "If sidebar becomes a drawer on mobile, focus moves into it on open and returns on close; Esc closes the drawer."
+    ],
+    "aria": [
+      "Primary nav: <nav aria-label=\"Primary\">; Secondary nav: <nav aria-label=\"Secondary\"> (or more specific).",
+      "Drawer mode uses dialog semantics (role=\"dialog\", aria-modal=\"true\") and an accessible name."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Never rely on color alone for active state; include underline/indicator and/or font weight.",
+      "Do not nest interactive elements inside interactive nav items.",
+      "Drawer mode must not allow focus behind the drawer while open."
+    ],
+    "error_messaging": [
+      "Navigation errors should be recoverable: provide a clear \"Back\" or \"Home\" path.",
+      "404/permission states should suggest the next best destination."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Navigation surfaces",
+      "notes": "Navbar/sidebar background."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Dividers",
+      "notes": "Bottom border in navbar; separators in sidebar groups."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use focus token for all nav focus-visible states."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Primary nav skeleton",
+      "html": "<header><a href=\"#main\">Skip to content</a><nav aria-label=\"Primary\"><a href=\"/\" aria-current=\"page\">Home</a><a href=\"/projects\">Projects</a><button type=\"button\" aria-haspopup=\"menu\" aria-expanded=\"false\">More</button></nav></header><main id=\"main\">…</main>"
+    }
+  ]
+}
+

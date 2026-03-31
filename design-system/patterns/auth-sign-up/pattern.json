@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "auth-sign-up",
+  "title": "Auth: Sign Up",
+  "intent": [
+    "Create an account with clear requirements and low friction.",
+    "Support validation and password manager flows.",
+    "Provide clear consent and legal links where necessary."
+  ],
+  "uses_contracts": ["form-field", "input", "password", "checkbox", "button", "link", "alert"],
+  "structure": [
+    "Fields: name (optional), email, password; optional terms checkbox.",
+    "Password requirements shown as helper text; avoid aggressive error spam while typing.",
+    "After success: confirm next step (email verification) with a clear message."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Enter submits; focus moves to the first invalid field on failure."
+    ],
+    "aria": [
+      "Use autocomplete attributes (name, email, new-password).",
+      "Requirements are linked via aria-describedby."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Do not leak whether an email already exists (use generic messaging).",
+      "If terms are required, enforce before submit with clear messaging."
+    ],
+    "error_messaging": [
+      "Explain password rules in plain language.",
+      "If email is in use, say \"Use a different email or sign in\"."
+    ]
+  },
+  "token_usage": [],
+  "examples": [
+    {
+      "title": "Sign-up skeleton",
+      "html": "<form><label>Email</label><input autocomplete=\"email\" /><label>Password</label><input type=\"password\" autocomplete=\"new-password\" /><label><input type=\"checkbox\" /> I agree</label><button type=\"submit\">Create account</button></form>"
+    }
+  ]
+}
+

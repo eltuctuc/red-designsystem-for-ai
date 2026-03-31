@@ -1,0 +1,132 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "button",
+  "title": "Button",
+  "description": "Clickable action control. This is a contract/spec, not a mandatory implementation.",
+  "anatomy": {
+    "parts": ["root", "label", "icon-leading", "icon-trailing"],
+    "slots": ["icon-leading", "icon-trailing"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "primary",
+      "enum": ["primary", "secondary", "ghost", "danger"],
+      "description": "Visual intent of the button."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "default": "md",
+      "enum": ["sm", "md", "lg"],
+      "description": "Controls height/padding and text size."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Shows busy state; should prevent repeated submission."
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "description": "Pointer hover.",
+      "effects": ["Slight background change and/or elevation change within motion rules."]
+    },
+    {
+      "name": "active",
+      "description": "Pressed/clicked state.",
+      "effects": ["Provide tactile feedback (e.g. slight translate or darker bg)."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast, disable pointer events, preserve readable label."]
+    },
+    {
+      "name": "loading",
+      "description": "Busy state.",
+      "effects": ["Show spinner, set aria-busy, prevent double activation."]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "description": "Activates the action (native click)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Use <button> whenever possible to get keyboard and semantics for free.",
+      "Enter/Space should activate (native button behavior)."
+    ],
+    "aria": [
+      "If loading is true, set aria-busy=\"true\" on the button or nearest relevant container.",
+      "If disabled is true, use the disabled attribute on <button> (not only aria-disabled)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Keep a visible focus indicator (do not remove outline without replacement).",
+      "Ensure minimum hit area (~40px height or equivalent padding)."
+    ],
+    "should": [
+      "Prefer semantic tokens for colors and borders.",
+      "When loading, keep label readable or provide accessible name."
+    ],
+    "must_not": [
+      "Do not rely on color alone to indicate the variant (use shape/label/icon where needed)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.accent",
+      "maps_to": "Primary background",
+      "notes": "Used for primary variant; other variants map to bg.surface/muted/danger."
+    },
+    {
+      "token": "semantic.color.fg.onAccent",
+      "maps_to": "Primary foreground",
+      "notes": "Ensure contrast in both themes."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible outline/ring."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Border radius",
+      "notes": "Use for button shape."
+    },
+    {
+      "token": "semantic.space.controlPadX",
+      "maps_to": "Horizontal padding",
+      "notes": "Baseline padding for md size; sm/lg can scale from primitives.space."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<button type=\"button\" data-variant=\"primary\">Save</button>"
+    }
+  ]
+}
+

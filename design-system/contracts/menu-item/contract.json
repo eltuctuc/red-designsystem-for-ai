@@ -1,0 +1,105 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "menu-item",
+  "title": "Menu Item",
+  "description": "Action item inside a menu (dropdown/context/overflow). Prefer <button> or <a> depending on action vs navigation.",
+  "anatomy": {
+    "parts": ["root", "label", "icon-leading", "shortcut", "check", "submenu-indicator"],
+    "slots": ["icon-leading"]
+  },
+  "props": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "default": "action",
+      "enum": ["action", "link", "checkbox", "radio", "submenu"],
+      "description": "Menu item semantic type."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Non-interactive item."
+    },
+    {
+      "name": "danger",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Marks a destructive action; requires confirmation in many contexts."
+    }
+  ],
+  "states": [
+    {
+      "name": "highlighted",
+      "description": "Item is focused/hovered.",
+      "effects": ["Background highlight; keep text readable in both themes."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive item.",
+      "effects": ["Reduced contrast; no activation."]
+    },
+    {
+      "name": "checked",
+      "description": "For checkbox/radio items.",
+      "effects": ["Shows check indicator."]
+    }
+  ],
+  "events": [
+    {
+      "name": "select",
+      "description": "Item selected/activated."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Menu navigation is handled by the parent menu using arrow keys and roving tabindex.",
+      "Enter/Space activates the focused item."
+    ],
+    "aria": [
+      "Action items use role=\"menuitem\".",
+      "Checkbox items use role=\"menuitemcheckbox\" with aria-checked.",
+      "Radio items use role=\"menuitemradio\" with aria-checked."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Item must have a clear label and consistent spacing/alignment.",
+      "Disabled items must not be focusable when possible."
+    ],
+    "should": [
+      "Support optional icons and keyboard shortcuts (display only).",
+      "Danger items should be visually distinct but still readable."
+    ],
+    "must_not": [
+      "Do not put form fields inside a menu unless it is a combobox or dedicated popover."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.muted",
+      "maps_to": "Highlighted background",
+      "notes": "Use muted background for highlight state."
+    },
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Text",
+      "notes": "Ensure readable contrast."
+    },
+    {
+      "token": "semantic.motion.hover",
+      "maps_to": "Highlight motion",
+      "notes": "Use fast motion for hover/highlight transitions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Menu item skeleton",
+      "html": "<button role=\"menuitem\" type=\"button\">Rename</button>"
+    }
+  ]
+}
+

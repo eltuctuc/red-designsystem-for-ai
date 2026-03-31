@@ -1,0 +1,50 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "auth-sign-in",
+  "title": "Auth: Sign In",
+  "intent": [
+    "Allow users to sign in with minimal friction.",
+    "Provide clear error handling and recovery options.",
+    "Support password managers and keyboard-first flows."
+  ],
+  "uses_contracts": ["form-field", "input", "button", "link", "alert", "toast"],
+  "structure": [
+    "Fields: email/username + password; optional remember-me checkbox.",
+    "Primary action: Sign in; secondary: Forgot password link.",
+    "Errors: field-level (inline) for validation; top-level alert for auth failures."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Enter submits when focused in password field.",
+      "Focus moves to the first invalid field on submit failure."
+    ],
+    "aria": [
+      "Inputs have autocomplete attributes (email, current-password) when possible.",
+      "Errors are linked via aria-describedby; invalid fields use aria-invalid."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Do not disable submit button preemptively unless required; prefer showing validation errors.",
+      "Lockout/rate-limit messaging must not reveal account existence."
+    ],
+    "error_messaging": [
+      "Use generic auth error copy (e.g. \"Email or password is incorrect\").",
+      "Offer recovery: \"Reset password\" link."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.space.sectionGap",
+      "maps_to": "Form spacing",
+      "notes": "Use section gaps for vertical rhythm."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Basic form skeleton",
+      "html": "<form><label>Email</label><input autocomplete=\"email\" /><label>Password</label><input type=\"password\" autocomplete=\"current-password\" /><button type=\"submit\">Sign in</button></form>"
+    }
+  ]
+}
+

@@ -1,0 +1,29 @@
+{
+  "$schema": "../schemas/rules.schema.json",
+  "version": 1,
+  "global": {
+    "invariants": {
+      "must": [
+        "Focus states must be clearly visible (focus-visible ring).",
+        "Interactive targets should be at least 40px tall or have equivalent hit area padding.",
+        "Text contrast should target WCAG AA for normal text where feasible in prototypes.",
+        "Respect user preferences: if prefers-reduced-motion is enabled, reduce or disable non-essential motion."
+      ],
+      "should": [
+        "Prefer semantic tokens over primitive tokens in app code.",
+        "Use spacing tokens for layout/padding/margins instead of arbitrary pixel values."
+      ],
+      "must_not": [
+        "Do not remove focus outlines without providing an accessible alternative.",
+        "Do not communicate state only via color (add text/icon/aria where relevant)."
+      ]
+    },
+    "theming": {
+      "themes": ["light", "dark"],
+      "switching": "Use the data-theme attribute on :root (html)."
+    },
+    "motion": {
+      "reduced_motion": "If prefers-reduced-motion is set, use minimal transitions (or none) for hover/enter/exit."
+    }
+  }
+}

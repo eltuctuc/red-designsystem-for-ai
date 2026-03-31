@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "list",
+  "title": "List",
+  "description": "Vertical collection of items (static or interactive). Prefer semantic <ul>/<ol> for lists and <nav> for navigation lists.",
+  "anatomy": {
+    "parts": ["root", "item", "divider"],
+    "slots": ["item"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "plain",
+      "enum": ["plain", "divided", "interactive"],
+      "description": "List styling/behavior."
+    },
+    {
+      "name": "density",
+      "type": "string",
+      "required": false,
+      "default": "comfortable",
+      "enum": ["comfortable", "compact"],
+      "description": "Item padding/height."
+    }
+  ],
+  "states": [],
+  "events": [
+    {
+      "name": "select",
+      "description": "Item selected (interactive variant)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If items are interactive, implement them as <a> or <button> so keyboard works by default.",
+      "Avoid making non-interactive list items focusable."
+    ],
+    "aria": [
+      "Use <ul>/<ol> for semantic lists.",
+      "If used for navigation, wrap in <nav aria-label=\"…\">."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Use appropriate semantic container (list vs nav)."
+    ],
+    "should": [
+      "Divided lists use consistent separators."
+    ],
+    "must_not": [
+      "Do not use role=\"listbox\" unless you implement listbox keyboard interactions."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Dividers",
+      "notes": "Use default border for separators."
+    },
+    {
+      "token": "semantic.space.stackGap",
+      "maps_to": "Item spacing",
+      "notes": "Use stack gap token for list spacing."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic list",
+      "html": "<ul><li>Alpha</li><li>Beta</li></ul>"
+    }
+  ]
+}
+

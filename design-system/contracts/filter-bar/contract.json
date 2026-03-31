@@ -1,0 +1,103 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "filter-bar",
+  "title": "Filter Bar",
+  "description": "Row of controls for filtering/sorting/searching a dataset. Composes other contracts (search input, select, checkbox, buttons).",
+  "anatomy": {
+    "parts": ["root", "primary", "secondary", "chips", "chip", "actions", "reset"],
+    "slots": ["primary", "secondary", "actions"]
+  },
+  "props": [
+    {
+      "name": "density",
+      "type": "string",
+      "required": false,
+      "default": "comfortable",
+      "enum": ["comfortable", "compact"],
+      "description": "Spacing and control sizing."
+    },
+    {
+      "name": "showActiveChips",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Shows active filters as removable chips."
+    },
+    {
+      "name": "canReset",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether reset/clear-all is available."
+    }
+  ],
+  "states": [
+    {
+      "name": "has-filters",
+      "description": "At least one filter is active.",
+      "effects": ["Reset control enabled; active chips visible (if enabled)."]
+    },
+    {
+      "name": "loading",
+      "description": "Dataset is updating.",
+      "effects": ["Optional spinner; avoid disabling all controls unless necessary."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Any filter/sort/search input changes (provides new filter model)."
+    },
+    {
+      "name": "reset",
+      "description": "Clear all filters."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "All controls reachable via Tab in a logical order.",
+      "Chip remove buttons are keyboard accessible and have clear labels."
+    ],
+    "aria": [
+      "Group the filter bar with a label (e.g. role=\"region\" aria-label=\"Filters\").",
+      "If chips are shown, each remove control must have an accessible name (e.g. \"Remove Status: Active\")."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Filter bar must not rely on color alone to show active filters.",
+      "Reset must be discoverable when filters are active."
+    ],
+    "should": [
+      "Prefer progressive disclosure: keep primary filters visible and move advanced filters into a popover.",
+      "Persist filter state in URL or local state for usability (implementation-specific)."
+    ],
+    "must_not": [
+      "Do not hide active filters without a way to review them."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Bar background",
+      "notes": "Use surface background if bar is on canvas."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Dividers",
+      "notes": "Optional border or separators."
+    },
+    {
+      "token": "semantic.space.controlPadX",
+      "maps_to": "Internal padding",
+      "notes": "Use control padding tokens for consistent spacing."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Region wrapper skeleton",
+      "html": "<section role=\"region\" aria-label=\"Filters\"><form><input type=\"search\" placeholder=\"Search…\" /><select><option>Status: Any</option></select><button type=\"button\">Reset</button></form></section>"
+    }
+  ]
+}
+

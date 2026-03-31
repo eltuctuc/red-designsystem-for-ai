@@ -1,0 +1,100 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "empty-state",
+  "title": "Empty State",
+  "description": "Message shown when no data is available (first-run, zero results, error-recovery entry points). Should be actionable and empathetic.",
+  "anatomy": {
+    "parts": ["root", "icon", "title", "description", "actions", "secondary-action"],
+    "slots": ["icon", "actions"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "no-results",
+      "enum": ["no-results", "first-run", "error"],
+      "description": "Type of empty state."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Primary message."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Secondary explanation and next steps."
+    },
+    {
+      "name": "primaryActionLabel",
+      "type": "string",
+      "required": false,
+      "description": "Primary action label (e.g. \"Create project\")."
+    },
+    {
+      "name": "secondaryActionLabel",
+      "type": "string",
+      "required": false,
+      "description": "Secondary action label (optional)."
+    }
+  ],
+  "states": [],
+  "events": [
+    {
+      "name": "primary",
+      "description": "Primary action activated."
+    },
+    {
+      "name": "secondary",
+      "description": "Secondary action activated."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Actions are reachable via Tab and activate with Enter/Space as appropriate."
+    ],
+    "aria": [
+      "Use headings (<h2>/<h3>) for the empty state title when appropriate to page structure.",
+      "If the empty state appears after filtering, announce result count elsewhere (e.g. \"0 results\")."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Empty state must offer a next step (change filters, create item, retry) unless truly read-only.",
+      "Copy must be clear and not blame the user."
+    ],
+    "should": [
+      "No-results state suggests clearing filters or adjusting search.",
+      "Error variant offers retry and/or support link."
+    ],
+    "must_not": [
+      "Do not use empty state as a loading placeholder (use skeleton/loading)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.fg.default",
+      "maps_to": "Title text",
+      "notes": "Use default foreground for title."
+    },
+    {
+      "token": "semantic.color.fg.muted",
+      "maps_to": "Description text",
+      "notes": "Use muted foreground for supporting copy."
+    },
+    {
+      "token": "semantic.space.stackGap",
+      "maps_to": "Layout spacing",
+      "notes": "Use semantic spacing tokens for gaps; adjust per layout."
+    }
+  ],
+  "examples": [
+    {
+      "title": "No results empty state",
+      "html": "<section aria-label=\"No results\"><h2>No results</h2><p>Try clearing filters.</p><button type=\"button\">Reset filters</button></section>"
+    }
+  ]
+}

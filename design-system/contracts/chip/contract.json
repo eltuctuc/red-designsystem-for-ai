@@ -1,0 +1,104 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "chip",
+  "title": "Chip / Tag",
+  "description": "Compact label used for categories, filters, or selections. Can be static, removable, or selectable.",
+  "anatomy": {
+    "parts": ["root", "label", "remove", "icon"],
+    "slots": ["icon"]
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "required": false,
+      "default": "neutral",
+      "enum": ["neutral", "accent", "success", "warning", "danger"],
+      "description": "Visual intent."
+    },
+    {
+      "name": "removable",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Shows remove control."
+    },
+    {
+      "name": "selected",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Selectable filter chip state."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Non-interactive."
+    }
+  ],
+  "states": [
+    {
+      "name": "selected",
+      "description": "Selected chip.",
+      "effects": ["Selected styling plus clear indicator."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator (if interactive).",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "remove",
+      "description": "Remove action invoked."
+    },
+    {
+      "name": "toggle",
+      "description": "Selected toggled (selectable chips)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If removable, remove control is a button and reachable via Tab.",
+      "If selectable, chip is a button and toggles with Enter/Space."
+    ],
+    "aria": [
+      "Remove button has an accessible name (e.g. \"Remove Status: Active\").",
+      "If selectable, use aria-pressed for toggle buttons."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Chip must be understandable without relying on color alone.",
+      "Remove action must be explicit and accessible."
+    ],
+    "should": [
+      "Keep chip labels short."
+    ],
+    "must_not": [
+      "Do not use chips as primary navigation."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.interactive.bg.default",
+      "maps_to": "Base background",
+      "notes": "Neutral chips use interactive bg; variants use state tokens."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Shape",
+      "notes": "Chips can use pill radius; reference primitives.radius.pill if needed."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Removable chip",
+      "html": "<span>Status: Active <button type=\"button\" aria-label=\"Remove Status: Active\">×</button></span>"
+    }
+  ]
+}
+

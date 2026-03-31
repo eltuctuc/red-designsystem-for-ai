@@ -1,0 +1,89 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "nav-item",
+  "title": "Nav Item",
+  "description": "Single navigation item used in navbar/sidebar. Prefer <a> for navigation; supports icons, badges, and active state.",
+  "anatomy": {
+    "parts": ["root", "icon", "label", "badge", "chevron"],
+    "slots": ["icon", "badge"]
+  },
+  "props": [
+    {
+      "name": "href",
+      "type": "string",
+      "required": false,
+      "description": "Destination url (navigation)."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Active/current state."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Non-interactive state."
+    }
+  ],
+  "states": [
+    {
+      "name": "active",
+      "description": "Current location.",
+      "effects": ["Active indicator; aria-current on link."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "navigate",
+      "description": "Navigation activated."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Use native link for navigation so Enter works by default."
+    ],
+    "aria": [
+      "Active item uses aria-current=\"page\".",
+      "If disabled, avoid focus; if focusable, clearly indicate state and block activation."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Active state must not rely on color alone (indicator/underline/shape)."
+    ],
+    "should": [
+      "Icons must have accessible name via label; decorative icons are aria-hidden."
+    ],
+    "must_not": [
+      "Do not use nav item for actions (use buttons)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use focus token for focus-visible."
+    },
+    {
+      "token": "semantic.color.interactive.bg.hover",
+      "maps_to": "Hover background",
+      "notes": "Use interactive hover background for nav hover."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Active nav link",
+      "html": "<a href=\"/projects\" aria-current=\"page\">Projects</a>"
+    }
+  ]
+}
+

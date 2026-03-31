@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "list-item",
+  "title": "List Item",
+  "description": "Composable list row (title + description + optional leading/trailing). Can be static or interactive.",
+  "anatomy": {
+    "parts": ["root", "leading", "title", "description", "trailing", "meta"],
+    "slots": ["leading", "trailing", "meta"]
+  },
+  "props": [
+    {
+      "name": "interactive",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "When true, root is a link/button."
+    },
+    {
+      "name": "selected",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Selected state for interactive lists."
+    }
+  ],
+  "states": [
+    {
+      "name": "hover",
+      "description": "Pointer hover (interactive).",
+      "effects": ["Background highlight; keep text readable."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator (interactive).",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "selected",
+      "description": "Selected (interactive).",
+      "effects": ["Selected styling not relying on color alone (indicator)."]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "description": "Activate navigation/action when interactive."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If interactive, use <a> or <button> for correct semantics.",
+      "Avoid nested interactive elements inside an interactive row."
+    ],
+    "aria": [
+      "If selected state exists, consider aria-current=\"page\" for nav or aria-selected for listbox patterns (only if listbox semantics implemented)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Row layout must be scannable (title primary, description secondary)."
+    ],
+    "should": [
+      "Provide consistent alignment for leading/trailing content."
+    ],
+    "must_not": [
+      "Do not make non-interactive rows focusable."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.interactive.bg.hover",
+      "maps_to": "Hover background",
+      "notes": "Use interactive hover background for highlight."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Interactive row as link",
+      "html": "<a href=\"/projects/alpha\">Alpha <span>Active</span></a>"
+    }
+  ]
+}
+

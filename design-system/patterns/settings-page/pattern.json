@@ -1,0 +1,42 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "settings-page",
+  "title": "Settings Page",
+  "intent": [
+    "Provide a predictable layout for user/app settings.",
+    "Support safe saving and unsaved changes handling.",
+    "Make sections scannable and accessible."
+  ],
+  "uses_contracts": ["sidebar", "nav-item", "tabs", "form-field", "input", "switch", "button", "toast", "dialog", "alert"],
+  "structure": [
+    "Layout: secondary nav (sidebar or tabs) + main settings content.",
+    "Each section has a heading and short description; group related controls.",
+    "Saving: show explicit Save/Cancel; optionally show a save bar when changes exist."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Nav and controls reachable via Tab; focus-visible ring preserved.",
+      "If unsaved changes dialog appears, focus moves to safest action."
+    ],
+    "aria": [
+      "Sections use headings and landmarks; alerts and toasts use appropriate live regions."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Do not save on every toggle unless explicitly intended; communicate persistence.",
+      "Unsaved changes prompt must not be overly aggressive; avoid prompting on harmless changes."
+    ],
+    "error_messaging": [
+      "Save failures are actionable: \"Couldn’t save. Try again.\""
+    ]
+  },
+  "token_usage": [],
+  "examples": [
+    {
+      "title": "Section skeleton",
+      "html": "<section><h2>Notifications</h2><p>Control how we notify you.</p>…</section>"
+    }
+  ]
+}
+

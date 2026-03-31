@@ -1,0 +1,86 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "accordion",
+  "title": "Accordion",
+  "description": "Expandable/collapsible content sections. Prefer native <details>/<summary> for prototypes when suitable.",
+  "anatomy": {
+    "parts": ["root", "item", "trigger", "panel", "icon"],
+    "slots": ["trigger", "panel"]
+  },
+  "props": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "default": "single",
+      "enum": ["single", "multiple"],
+      "description": "Single allows one open item; multiple allows many."
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether the open item can be collapsed."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Item expanded.",
+      "effects": ["Panel visible; trigger indicates expanded state."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on trigger.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "toggle",
+      "description": "Item expanded/collapsed."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Trigger is a button and toggles with Enter/Space.",
+      "Tab navigates between triggers and focusable content inside open panels."
+    ],
+    "aria": [
+      "Trigger uses aria-expanded and aria-controls pointing to panel id.",
+      "Panel has role=\"region\" and aria-labelledby pointing to trigger (recommended)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Expanded state must be exposed via aria-expanded.",
+      "Panels must be associated with triggers via ids."
+    ],
+    "should": [
+      "Prefer <details>/<summary> for prototypes when semantics fit."
+    ],
+    "must_not": [
+      "Do not hide important information behind accordions without a clear discoverability."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Item separators",
+      "notes": "Use default border for dividers between items."
+    },
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Expand/collapse motion",
+      "notes": "Use UI motion token; respect reduced motion."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Native details reference",
+      "html": "<details><summary>Details</summary><p>More info…</p></details>"
+    }
+  ]
+}
+

@@ -1,0 +1,62 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "divider",
+  "title": "Divider",
+  "description": "Visual separator between sections or items.",
+  "anatomy": {
+    "parts": ["root", "line", "label"],
+    "slots": ["label"]
+  },
+  "props": [
+    {
+      "name": "orientation",
+      "type": "string",
+      "required": false,
+      "default": "horizontal",
+      "enum": ["horizontal", "vertical"],
+      "description": "Divider direction."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional label in the divider."
+    }
+  ],
+  "states": [],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Divider is not interactive."
+    ],
+    "aria": [
+      "Use <hr> for semantic horizontal separators when appropriate.",
+      "If divider is purely decorative, it can be aria-hidden."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Divider must not be the only way to convey grouping; use headings/spacing too."
+    ],
+    "should": [
+      "Use subtle contrast for dividers."
+    ],
+    "must_not": [
+      "Do not overuse dividers; prefer whitespace for separation."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Line color",
+      "notes": "Use default border for dividers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "HR reference",
+      "html": "<hr />"
+    }
+  ]
+}
+

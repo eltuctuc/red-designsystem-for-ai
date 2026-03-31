@@ -1,0 +1,111 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "input",
+  "title": "Input",
+  "description": "Single-line text input contract (reference spec).",
+  "anatomy": {
+    "parts": ["root", "label", "control", "helper-text", "error-text"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current value (controlled/uncontrolled depends on framework)."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Short hint text."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Shows validation error state; set aria-invalid and describe error."
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast, keep text readable, prevent input."]
+    },
+    {
+      "name": "invalid",
+      "description": "Validation error state.",
+      "effects": ["Use error text and connect via aria-describedby; avoid relying on border color alone."]
+    }
+  ],
+  "events": [
+    {
+      "name": "input",
+      "description": "Value changes (native input event)."
+    },
+    {
+      "name": "change",
+      "description": "Commit value change (native change event)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Use <input> for native keyboard behavior.",
+      "Tab focuses the control; Shift+Tab reverses."
+    ],
+    "aria": [
+      "Label via <label for> or wrapping label.",
+      "When invalid, set aria-invalid=\"true\" and link error text with aria-describedby."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Label must be programmatically associated with the input.",
+      "Focus state must be clearly visible."
+    ],
+    "should": [
+      "Helper and error text should be short and actionable."
+    ],
+    "must_not": [
+      "Do not indicate error only via color (add text and aria)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control background",
+      "notes": "Use surface background for inputs."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control border",
+      "notes": "Default border; on focus use semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Border radius",
+      "notes": "Use consistent control radius."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<label for=\"name\">Name</label><input id=\"name\" name=\"name\" />"
+    }
+  ]
+}
+

@@ -1,0 +1,103 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "dialog",
+  "title": "Dialog (Modal)",
+  "description": "Modal overlay for critical tasks. Prefer native <dialog> when feasible; otherwise implement a11y correctly.",
+  "anatomy": {
+    "parts": ["overlay", "container", "title", "content", "actions", "close-button"],
+    "slots": ["title", "content", "actions"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls visibility."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether ESC and overlay click can close the dialog."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Dialog title (should be rendered as heading)."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Dialog is visible and modal.",
+      "effects": ["Background is inert; focus is trapped inside."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Dialog opened."
+    },
+    {
+      "name": "close",
+      "description": "Dialog closed (reason: confirm/cancel/esc/overlay)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "On open, move focus to the dialog (or first focusable element).",
+      "Trap focus within the dialog while open.",
+      "ESC closes only if dismissible is true."
+    ],
+    "aria": [
+      "Use role=\"dialog\" and aria-modal=\"true\" (unless using native <dialog>).",
+      "Provide aria-labelledby pointing to the title, or aria-label as fallback.",
+      "Ensure background content is inert or aria-hidden while open."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Dialog must be reachable and operable by keyboard only.",
+      "Visible focus indicator must be preserved.",
+      "A close action must be available (button or explicit cancel action)."
+    ],
+    "should": [
+      "Avoid dialogs for non-critical content; prefer inline or page navigation."
+    ],
+    "must_not": [
+      "Do not trap focus when dialog is not open.",
+      "Do not allow focus to move behind the dialog while open."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.canvas",
+      "maps_to": "Overlay backdrop base",
+      "notes": "Backdrop is typically a translucent overlay over canvas/surface."
+    },
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Dialog background",
+      "notes": "Use surface background for dialog container."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Elevation",
+      "notes": "Use overlay shadow for modal container."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Corner radius",
+      "notes": "Use surface radius for containers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA dialog skeleton",
+      "html": "<div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"dlg-title\"><h2 id=\"dlg-title\">Confirm</h2><p>Are you sure?</p><button type=\"button\">Cancel</button><button type=\"button\">Confirm</button></div>"
+    }
+  ]
+}
+

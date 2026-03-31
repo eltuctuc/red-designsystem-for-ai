@@ -1,0 +1,122 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "stat-card",
+  "title": "Stat Card",
+  "description": "Compact KPI surface for dashboards (label + value + optional delta/trend). Usually composed with card + metric.",
+  "anatomy": {
+    "parts": ["root", "label", "value", "delta", "trend", "icon", "footer"],
+    "slots": ["icon", "footer"]
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Short metric label (e.g. \"Active users\")."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "Main value (formatted, e.g. \"12,340\")."
+    },
+    {
+      "name": "delta",
+      "type": "string",
+      "required": false,
+      "description": "Change indicator (e.g. \"+12%\" or \"-3.2%\")."
+    },
+    {
+      "name": "trend",
+      "type": "string",
+      "required": false,
+      "default": "neutral",
+      "enum": ["neutral", "up", "down"],
+      "description": "Trend direction for styling (must not rely on color alone)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Shows skeleton/placeholder state."
+    },
+    {
+      "name": "interactive",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "When true, the card navigates or triggers an action (use <a>/<button>)."
+    }
+  ],
+  "states": [
+    {
+      "name": "loading",
+      "description": "Data loading.",
+      "effects": ["Show skeleton blocks; keep layout stable."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator (if interactive).",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "description": "Activates navigation/action when interactive."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If interactive, use <a> or <button> so Enter/Space works correctly.",
+      "Avoid making the root interactive when it contains inner interactive elements."
+    ],
+    "aria": [
+      "Ensure the card has an accessible name if interactive (e.g. via label text).",
+      "If delta conveys status, include text (e.g. \"+12% up\") not only color."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Label and value must be readable in both themes.",
+      "If trend is communicated, do not rely on color alone (use arrows/text)."
+    ],
+    "should": [
+      "Keep labels short (1–3 words).",
+      "Use consistent formatting for numbers (thousands separators, units)."
+    ],
+    "must_not": [
+      "Do not overload stat cards with dense text; link to detail view instead."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Card background",
+      "notes": "Use surface background for KPI tiles."
+    },
+    {
+      "token": "semantic.shadow.surface",
+      "maps_to": "Elevation",
+      "notes": "Optional subtle shadow; keep dashboards calm."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Corner radius",
+      "notes": "Use surface radius for containers."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible when interactive."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<section aria-label=\"Active users\"><p>Active users</p><p>12,340</p><p>+12% up</p></section>"
+    }
+  ]
+}
+

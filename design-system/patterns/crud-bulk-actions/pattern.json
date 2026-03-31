@@ -1,0 +1,42 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "crud-bulk-actions",
+  "title": "CRUD: Bulk Actions",
+  "intent": [
+    "Allow selecting multiple rows/items and performing actions.",
+    "Prevent accidental destructive bulk operations.",
+    "Keep selection state visible and reversible."
+  ],
+  "uses_contracts": ["table", "checkbox", "filter-bar", "button", "dropdown-menu", "menu-item", "dialog", "toast"],
+  "structure": [
+    "Selection via checkboxes in list/table with a clear selected count.",
+    "Bulk action bar appears when selection > 0; includes clear selection action.",
+    "Destructive bulk actions require confirmation."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Selection checkboxes are reachable; bulk action bar buttons are reachable when shown."
+    ],
+    "aria": [
+      "Selected count is announced via role=\"status\" (optional).",
+      "Confirm dialogs follow dialog contract."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Always show selected count and provide clear-all selection.",
+      "Bulk destructive actions require confirmation."
+    ],
+    "error_messaging": [
+      "On partial failure, show which items failed and what to do next."
+    ]
+  },
+  "token_usage": [],
+  "examples": [
+    {
+      "title": "Selected count",
+      "html": "<div role=\"status\">3 selected</div>"
+    }
+  ]
+}
+

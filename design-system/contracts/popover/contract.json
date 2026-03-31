@@ -1,0 +1,117 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "popover",
+  "title": "Popover",
+  "description": "Anchored floating surface for contextual content (non-modal). Consider using the HTML Popover API where available.",
+  "anatomy": {
+    "parts": ["root", "trigger", "content", "arrow", "close-button"],
+    "slots": ["trigger", "content"]
+  },
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Controls visibility."
+    },
+    {
+      "name": "placement",
+      "type": "string",
+      "required": false,
+      "default": "bottom",
+      "enum": ["top", "right", "bottom", "left", "top-start", "top-end", "bottom-start", "bottom-end"],
+      "description": "Preferred placement relative to trigger."
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Whether outside click and Esc can close the popover."
+    },
+    {
+      "name": "modal",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "When true, behaves more like a dialog (use sparingly)."
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "description": "Popover is visible.",
+      "effects": ["Content is positioned and layered above other content."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on trigger or content elements.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "open",
+      "description": "Popover opened."
+    },
+    {
+      "name": "close",
+      "description": "Popover closed (reason: escape/outside/trigger)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Trigger: Enter/Space toggles popover.",
+      "Esc closes if dismissible is true and returns focus to trigger.",
+      "Tab should move naturally; do not trap focus unless modal is true."
+    ],
+    "aria": [
+      "If content is a simple region, use aria-expanded on trigger and aria-controls pointing to content.",
+      "If the popover behaves like a dialog (modal=true), use role=\"dialog\" and an accessible name."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Popover must not obscure critical content without a way to dismiss it.",
+      "Focus management must be predictable: on close, return focus to trigger."
+    ],
+    "should": [
+      "Close on outside click when dismissible is true.",
+      "Support repositioning to stay within viewport."
+    ],
+    "must_not": [
+      "Do not use popovers for essential information that must always be visible (use inline).",
+      "Do not trap focus in a non-modal popover."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Popover background",
+      "notes": "Use surface background for floating content."
+    },
+    {
+      "token": "semantic.shadow.overlay",
+      "maps_to": "Elevation",
+      "notes": "Use overlay shadow for floating surfaces."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Panel radius",
+      "notes": "Use surface radius for the popover panel."
+    },
+    {
+      "token": "semantic.motion.ui",
+      "maps_to": "Open/close animation",
+      "notes": "Use UI motion token for transitions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Trigger + region skeleton",
+      "html": "<button type=\"button\" aria-expanded=\"false\" aria-controls=\"pop-1\">Details</button><div id=\"pop-1\" role=\"region\" hidden><p>Contextual content…</p></div>"
+    }
+  ]
+}
+

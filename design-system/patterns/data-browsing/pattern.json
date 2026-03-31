@@ -1,0 +1,63 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "data-browsing",
+  "title": "Data Browsing (List → Detail)",
+  "intent": [
+    "Support common browsing flows: list with filters/search/sort, then detail view.",
+    "Handle loading, empty, error, and permission states gracefully.",
+    "Maintain shareable state (URL) for filters and selection where feasible."
+  ],
+  "uses_contracts": ["filter-bar", "search-input", "table", "card", "pagination", "empty-state", "toast", "link"],
+  "structure": [
+    "List view layout: header (title + primary action), filter bar, results (table or cards), pagination/footer.",
+    "Filters/search update results without losing context; keep layout stable during loading (skeletons).",
+    "Empty states differentiate: first-run (create), no-results (clear filters), error (retry).",
+    "Detail view has clear back navigation and preserves list state (e.g. via URL params)."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Filter controls and result items are reachable in a logical tab order.",
+      "Table sorting controls are buttons in headers and operable via keyboard.",
+      "When navigating from list to detail and back, focus returns to a reasonable element (e.g. previously activated row/link)."
+    ],
+    "aria": [
+      "Results region can be labeled (e.g. role=\"region\" aria-label=\"Results\").",
+      "Empty state uses headings and clear labels; error toasts use appropriate aria-live."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Loading state does not remove controls unless necessary; prefer showing a subtle busy indicator.",
+      "Empty state is specific: No results suggests clearing filters; First run suggests creating an item; Error suggests retry.",
+      "Pagination and sorting do not break deep links; state is reflected in URL when feasible."
+    ],
+    "error_messaging": [
+      "Errors are actionable: explain what happened, what the user can do next (retry, change filters, contact support).",
+      "Avoid technical error codes in UI; log them elsewhere."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.canvas",
+      "maps_to": "Page background",
+      "notes": "Use canvas as base background."
+    },
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Panels and results containers",
+      "notes": "Use surface for filter bar, cards, and tables."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Dividers and separators",
+      "notes": "Use for table row dividers and section separators."
+    }
+  ],
+  "examples": [
+    {
+      "title": "List view skeleton",
+      "html": "<main><h1>Projects</h1><section role=\"region\" aria-label=\"Filters\">…</section><section role=\"region\" aria-label=\"Results\">…</section></main>"
+    }
+  ]
+}
+

@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "auth-mfa",
+  "title": "Auth: MFA (One-time code)",
+  "intent": [
+    "Verify user with a one-time code (TOTP/SMS/email).",
+    "Support paste and fast keyboard entry.",
+    "Provide recovery options."
+  ],
+  "uses_contracts": ["input", "button", "link", "alert"],
+  "structure": [
+    "Show short instruction with masked destination when appropriate.",
+    "Code input: single input or segmented inputs; support paste of full code.",
+    "Actions: Verify (primary), Resend (secondary), Use recovery code (optional)."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Focus starts on code input; Enter submits when code complete.",
+      "If segmented inputs, arrow keys and backspace move predictably."
+    ],
+    "aria": [
+      "Provide a single accessible name for segmented input group.",
+      "Announce resend confirmation via role=\"status\"."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Allow pasting full code; avoid forcing manual entry.",
+      "Rate limit resend action and communicate cooldown."
+    ],
+    "error_messaging": [
+      "Use generic error: \"Code is invalid or expired\" + next steps."
+    ]
+  },
+  "token_usage": [],
+  "examples": [
+    {
+      "title": "Code input",
+      "html": "<label for=\"code\">Code</label><input id=\"code\" inputmode=\"numeric\" autocomplete=\"one-time-code\" />"
+    }
+  ]
+}
+

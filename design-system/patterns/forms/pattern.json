@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schemas/pattern.schema.json",
+  "id": "forms",
+  "title": "Forms",
+  "intent": [
+    "Collect user input with clear structure and validation.",
+    "Make errors actionable and accessible.",
+    "Support keyboard-first usage."
+  ],
+  "uses_contracts": ["input", "button"],
+  "structure": [
+    "Group related fields using <fieldset> + <legend> where appropriate.",
+    "Place labels above inputs for scanning; use helper text for constraints.",
+    "Put primary action last and align with reading direction; disable only when necessary."
+  ],
+  "a11y": {
+    "keyboard": [
+      "Tab order follows visual order; no focus traps unless inside a modal.",
+      "Enter submits when focus is in a single-line input and submit action is present."
+    ],
+    "aria": [
+      "Associate labels via <label for> or wrapping label pattern.",
+      "On error, connect input to error text via aria-describedby and mark invalid via aria-invalid=\"true\"."
+    ]
+  },
+  "validation": {
+    "rules": [
+      "Validate on blur and on submit; avoid aggressive per-keystroke errors for prototypes unless needed.",
+      "Server errors must be shown near the relevant field or as a form summary."
+    ],
+    "error_messaging": [
+      "Error messages start with the fix (e.g. “Enter a valid email address”).",
+      "Keep messages short; avoid codes; provide examples if format is non-obvious."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Input border",
+      "notes": "Use default border; on focus switch to semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Field background",
+      "notes": "Use for inputs and field containers."
+    },
+    {
+      "token": "semantic.color.bg.danger",
+      "maps_to": "Error accent",
+      "notes": "Use sparingly (e.g. small indicators); keep text readable."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Field with error (reference HTML)",
+      "html": "<label for=\"email\">Email</label><input id=\"email\" name=\"email\" aria-invalid=\"true\" aria-describedby=\"email-error\" /><p id=\"email-error\">Enter a valid email address.</p>"
+    }
+  ]
+}
+

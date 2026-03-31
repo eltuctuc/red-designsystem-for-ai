@@ -1,0 +1,107 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "pagination",
+  "title": "Pagination",
+  "description": "Navigate paged content. Prefer semantic <nav> with links/buttons and clear current state.",
+  "anatomy": {
+    "parts": ["root", "prev", "next", "pages", "page", "ellipsis"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "page",
+      "type": "number",
+      "required": true,
+      "description": "Current page (1-based)."
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "required": true,
+      "description": "Total number of pages."
+    },
+    {
+      "name": "siblingCount",
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "description": "How many pages to show adjacent to current page."
+    },
+    {
+      "name": "showFirstLast",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Show first/last page shortcuts."
+    }
+  ],
+  "states": [
+    {
+      "name": "current",
+      "description": "Current page item.",
+      "effects": ["Visually highlighted; aria-current=\"page\"."]
+    },
+    {
+      "name": "disabled",
+      "description": "Prev/next disabled at edges.",
+      "effects": ["Disable interaction and adjust styling."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on controls.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Page changes (new page number)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Controls must be reachable via Tab; activation via Enter/Space on buttons, Enter on links."
+    ],
+    "aria": [
+      "Wrap in <nav aria-label=\"Pagination\">.",
+      "Mark current page with aria-current=\"page\".",
+      "Use aria-labels on prev/next buttons (e.g. \"Go to next page\")."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Current page must be clearly indicated (visual + aria-current).",
+      "Prev/next must be disabled correctly at boundaries."
+    ],
+    "should": [
+      "Support compact mode with ellipsis for large page counts."
+    ],
+    "must_not": [
+      "Do not render dozens of page links; use ellipsis/compaction."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control borders",
+      "notes": "Use default border for pagination items."
+    },
+    {
+      "token": "semantic.color.border.focus",
+      "maps_to": "Focus ring",
+      "notes": "Use for focus-visible styling."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Shape",
+      "notes": "Use control radius for page pills/buttons."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic HTML reference",
+      "html": "<nav aria-label=\"Pagination\"><a href=\"?page=1\" aria-current=\"page\">1</a><a href=\"?page=2\">2</a><button type=\"button\" aria-label=\"Go to next page\">Next</button></nav>"
+    }
+  ]
+}
+

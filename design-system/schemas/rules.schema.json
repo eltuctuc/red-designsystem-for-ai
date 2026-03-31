@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/rules.schema.json",
+  "title": "Rules / Guardrails (DS v1)",
+  "type": "object",
+  "required": ["version", "global"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer" },
+    "since": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["stable", "beta", "experimental", "deprecated"]
+    },
+    "global": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invariants", "theming"],
+      "properties": {
+        "invariants": { "$ref": "#/$defs/invariants" },
+        "theming": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["themes", "switching"],
+          "properties": {
+            "themes": { "type": "array", "items": { "type": "string" } },
+            "switching": { "type": "string" }
+          }
+        },
+        "motion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reduced_motion"],
+          "properties": {
+            "reduced_motion": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["must", "should", "must_not"],
+      "properties": {
+        "must": { "type": "array", "items": { "type": "string" } },
+        "should": { "type": "array", "items": { "type": "string" } },
+        "must_not": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

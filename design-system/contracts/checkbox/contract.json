@@ -1,0 +1,114 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "checkbox",
+  "title": "Checkbox",
+  "description": "Binary or multi-select choice. Prefer native <input type=\"checkbox\"> for semantics and keyboard support.",
+  "anatomy": {
+    "parts": ["root", "control", "label", "description"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean",
+      "required": false,
+      "description": "Current checked state (controlled/uncontrolled depends on framework)."
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Mixed state for hierarchical selections (visual only; manage separately from checked)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Marks the field as required in a form."
+    }
+  ],
+  "states": [
+    {
+      "name": "checked",
+      "description": "Checked state.",
+      "effects": ["Show checkmark; maintain sufficient contrast in both themes."]
+    },
+    {
+      "name": "indeterminate",
+      "description": "Mixed state.",
+      "effects": ["Show dash; do not imply fully checked."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; keep label readable."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Checked state changes (native change event)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Space toggles checked state when focused (native checkbox behavior).",
+      "Tab focuses the checkbox; Shift+Tab reverses."
+    ],
+    "aria": [
+      "Use <input type=\"checkbox\"> with an associated <label>.",
+      "If indeterminate, set the DOM property input.indeterminate=true (not only aria).",
+      "If you cannot use native input, mirror semantics using role=\"checkbox\" and aria-checked."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Label must be programmatically associated with the checkbox.",
+      "Focus indicator must be visible."
+    ],
+    "should": [
+      "Clickable label increases hit area and improves usability."
+    ],
+    "must_not": [
+      "Do not use checkbox for mutually exclusive choices (use radio group)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control border",
+      "notes": "Default border; on focus use semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control background",
+      "notes": "Unchecked background in both themes."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Control radius",
+      "notes": "Use consistent radius for form controls."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<label><input type=\"checkbox\" name=\"tos\" /> I agree</label>"
+    }
+  ]
+}
+

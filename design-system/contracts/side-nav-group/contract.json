@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "side-nav-group",
+  "title": "Side Nav Group",
+  "description": "Grouped sidebar navigation section with optional collapsible behavior.",
+  "anatomy": {
+    "parts": ["root", "header", "title", "toggle", "items"],
+    "slots": ["items"]
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Group label."
+    },
+    {
+      "name": "collapsible",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether group can collapse."
+    },
+    {
+      "name": "collapsed",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Collapsed state."
+    }
+  ],
+  "states": [
+    {
+      "name": "collapsed",
+      "description": "Group collapsed.",
+      "effects": ["Items hidden; toggle indicates state."]
+    }
+  ],
+  "events": [
+    {
+      "name": "toggle",
+      "description": "Collapsed state toggled."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "If collapsible, toggle is a button and operable with Enter/Space."
+    ],
+    "aria": [
+      "Toggle uses aria-expanded and aria-controls pointing to items container.",
+      "Group title is visible and programmatically associated with items region (recommended)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Group label must be visible and scannable."
+    ],
+    "should": [
+      "Collapsible groups remember state per user/session (optional)."
+    ],
+    "must_not": [
+      "Do not hide essential nav items behind collapsed groups on desktop."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Separators",
+      "notes": "Optional divider between groups."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Group skeleton",
+      "html": "<section aria-label=\"Group\"><h3>Projects</h3><nav><a href=\"/p/alpha\">Alpha</a></nav></section>"
+    }
+  ]
+}
+

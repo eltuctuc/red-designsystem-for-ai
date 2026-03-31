@@ -1,0 +1,105 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "chart-container",
+  "title": "Chart Container",
+  "description": "Wrapper for charts/visualizations with title, description, legend, and accessible alternatives (summary/table).",
+  "anatomy": {
+    "parts": ["root", "header", "title", "description", "chart", "legend", "summary", "footer"],
+    "slots": ["chart", "legend", "summary", "footer"]
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Chart title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Short context or explanation."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Shows loading state/skeleton."
+    },
+    {
+      "name": "empty",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "No data to display; show empty state copy."
+    },
+    {
+      "name": "accessibleSummary",
+      "type": "string",
+      "required": false,
+      "description": "Textual summary of key insight (recommended)."
+    }
+  ],
+  "states": [
+    {
+      "name": "loading",
+      "description": "Data loading.",
+      "effects": ["Show skeleton; keep layout stable."]
+    },
+    {
+      "name": "empty",
+      "description": "No data.",
+      "effects": ["Show empty message or empty-state component."]
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "keyboard": [
+      "Charts should not require mouse-only interaction to access key insights.",
+      "If chart has interactive controls (filters, toggles), they must be keyboard accessible."
+    ],
+    "aria": [
+      "Provide a text summary and/or data table fallback for complex charts.",
+      "If the chart is an image/canvas, provide aria-label and long description nearby.",
+      "Legend items must not rely on color alone (include labels/patterns)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Chart must include a title and a summary or alternative access to data.",
+      "Do not rely on color alone to distinguish series."
+    ],
+    "should": [
+      "Keep chart ink low: avoid heavy gridlines and decorative noise.",
+      "Support responsive sizing (container scales; avoids overflow)."
+    ],
+    "must_not": [
+      "Do not render charts without context (title/units/time range)."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Container background",
+      "notes": "Use surface background for chart panels."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Panel border/divider",
+      "notes": "Optional border or divider between header and chart."
+    },
+    {
+      "token": "semantic.radius.surface",
+      "maps_to": "Corner radius",
+      "notes": "Use surface radius for containers."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Panel skeleton with summary",
+      "html": "<section aria-label=\"Revenue chart\"><h2>Revenue</h2><p>Last 30 days</p><div aria-label=\"Chart\" role=\"img\">…</div><p>Summary: Revenue increased week-over-week.</p></section>"
+    }
+  ]
+}
+

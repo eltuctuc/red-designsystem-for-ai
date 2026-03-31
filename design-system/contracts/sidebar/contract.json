@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "sidebar",
+  "title": "Sidebar",
+  "description": "Secondary navigation region, often used in dashboards. Prefer semantic <nav> and clear grouping.",
+  "anatomy": {
+    "parts": ["root", "header", "nav", "group", "item", "footer", "collapse-toggle"],
+    "slots": ["header", "nav", "footer"]
+  },
+  "props": [
+    {
+      "name": "collapsed",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Collapsed rail mode (icons only)."
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Supports mobile behavior (drawer/overlay)."
+    }
+  ],
+  "states": [
+    {
+      "name": "collapsed",
+      "description": "Compact mode.",
+      "effects": ["Sidebar reduces width; labels may be hidden; tooltips may show labels."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on items.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "navigate",
+      "description": "User activates a nav item."
+    },
+    {
+      "name": "toggle",
+      "description": "Collapsed state toggled."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "All items must be reachable via Tab.",
+      "If used as a mobile drawer, focus must move into the drawer when opened and return on close."
+    ],
+    "aria": [
+      "Use <nav aria-label=\"Secondary\"> (or a specific label like \"Project navigation\").",
+      "Use aria-current=\"page\" on the active item.",
+      "If sidebar becomes a modal drawer on mobile, apply dialog-like semantics (see dialog contract)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Active location must be indicated (aria-current + visual).",
+      "Collapsed mode must remain usable (icons need accessible names; tooltips or sr-only labels)."
+    ],
+    "should": [
+      "Group items with headings for scanning.",
+      "Keep sidebar width stable to reduce layout shift."
+    ],
+    "must_not": [
+      "Do not hide navigation labels without providing accessible names."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Sidebar background",
+      "notes": "Use surface background for navigation region."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Divider/border",
+      "notes": "Use for separators between groups or edge border."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Semantic HTML reference",
+      "html": "<aside><nav aria-label=\"Secondary\"><a href=\"/overview\" aria-current=\"page\">Overview</a><a href=\"/settings\">Settings</a></nav></aside>"
+    }
+  ]
+}
+

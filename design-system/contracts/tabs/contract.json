@@ -1,0 +1,92 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "tabs",
+  "title": "Tabs",
+  "description": "Switch between related views. Must follow WAI-ARIA tabs pattern when custom; avoid tabs for primary navigation.",
+  "anatomy": {
+    "parts": ["root", "list", "tab", "panel", "indicator"],
+    "slots": ["tab", "panel"]
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Active tab id."
+    },
+    {
+      "name": "activation",
+      "type": "string",
+      "required": false,
+      "default": "auto",
+      "enum": ["auto", "manual"],
+      "description": "Auto: arrow keys activate immediately. Manual: arrow keys move focus; Enter/Space activates."
+    }
+  ],
+  "states": [
+    {
+      "name": "active",
+      "description": "Active tab.",
+      "effects": ["Active indicator and panel visible."]
+    },
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator on a tab.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Active tab changes."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "ArrowLeft/ArrowRight move focus between tabs.",
+      "Home/End jump to first/last tab.",
+      "In manual activation, Enter/Space activates focused tab."
+    ],
+    "aria": [
+      "Use role=\"tablist\" on the list, role=\"tab\" on tabs, role=\"tabpanel\" on panels.",
+      "Tabs must have aria-controls pointing to panel; panels must have aria-labelledby pointing to tab.",
+      "Only the active panel is shown; inactive panels should be hidden (e.g. hidden attribute)."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Tabs must be fully usable by keyboard and screen readers.",
+      "Active state must be visually clear without relying on color alone."
+    ],
+    "should": [
+      "Use tabs for related content at the same hierarchy level."
+    ],
+    "must_not": [
+      "Do not use tabs for primary site navigation."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Tab list divider",
+      "notes": "Use for separators/underline."
+    },
+    {
+      "token": "semantic.color.bg.accent",
+      "maps_to": "Active indicator",
+      "notes": "Use accent for the indicator line or pill."
+    },
+    {
+      "token": "semantic.motion.hover",
+      "maps_to": "Interaction motion",
+      "notes": "Use for hover/active transitions."
+    }
+  ],
+  "examples": [
+    {
+      "title": "ARIA tabs skeleton",
+      "html": "<div><div role=\"tablist\" aria-label=\"Settings\"><button role=\"tab\" aria-selected=\"true\" aria-controls=\"panel-a\" id=\"tab-a\">Profile</button><button role=\"tab\" aria-selected=\"false\" aria-controls=\"panel-b\" id=\"tab-b\" tabindex=\"-1\">Security</button></div><div role=\"tabpanel\" id=\"panel-a\" aria-labelledby=\"tab-a\">…</div><div role=\"tabpanel\" id=\"panel-b\" aria-labelledby=\"tab-b\" hidden>…</div></div>"
+    }
+  ]
+}
+

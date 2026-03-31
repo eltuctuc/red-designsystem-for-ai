@@ -1,0 +1,101 @@
+{
+  "$schema": "../../schemas/contract.schema.json",
+  "id": "select",
+  "title": "Select",
+  "description": "Single selection from a list. Prefer native <select> for accessibility and platform behavior.",
+  "anatomy": {
+    "parts": ["root", "label", "control", "helper-text", "error-text"],
+    "slots": []
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Selected value."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Prevents interaction."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Validation error state."
+    }
+  ],
+  "states": [
+    {
+      "name": "focus-visible",
+      "description": "Keyboard focus indicator.",
+      "effects": ["Show focus ring using semantic border focus token."]
+    },
+    {
+      "name": "disabled",
+      "description": "Non-interactive state.",
+      "effects": ["Reduce contrast; keep label readable."]
+    },
+    {
+      "name": "invalid",
+      "description": "Validation error state.",
+      "effects": ["Show error text and aria-invalid; avoid relying on border color alone."]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "description": "Selection changes (native change event)."
+    }
+  ],
+  "a11y": {
+    "keyboard": [
+      "Use native <select> to get correct keyboard behavior across platforms.",
+      "Tab focuses select; Arrow keys change selection depending on platform."
+    ],
+    "aria": [
+      "Label via <label for> or wrapping label.",
+      "If invalid, set aria-invalid and connect error with aria-describedby."
+    ]
+  },
+  "invariants": {
+    "must": [
+      "Label must be programmatically associated with the select.",
+      "Keep focus indicator visible."
+    ],
+    "should": [
+      "Prefer select when options are many; prefer radio group when options are few and benefit from visibility."
+    ],
+    "must_not": [
+      "Do not replace native select with custom combobox unless you need search/virtualization."
+    ]
+  },
+  "token_usage": [
+    {
+      "token": "semantic.color.bg.surface",
+      "maps_to": "Control background",
+      "notes": "Use surface background for controls."
+    },
+    {
+      "token": "semantic.color.border.default",
+      "maps_to": "Control border",
+      "notes": "Default border; on focus use semantic.color.border.focus."
+    },
+    {
+      "token": "semantic.radius.control",
+      "maps_to": "Border radius",
+      "notes": "Use consistent control radius."
+    }
+  ],
+  "examples": [
+    {
+      "title": "Plain HTML reference",
+      "html": "<label for=\"country\">Country</label><select id=\"country\" name=\"country\"><option>Germany</option><option>France</option></select>"
+    }
+  ]
+}
+
