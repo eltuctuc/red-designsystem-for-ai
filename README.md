@@ -29,7 +29,7 @@ npm run build:tokens
 
 2) In einem Projekt einbinden:
 
-- CSS importieren: `design-system/tokens/dist/theme.css`
+- CSS importieren: `tokens/dist/theme.css`
 - Theme setzen (Beispiel):
   - Light: `<html data-theme="light">`
   - Dark: `<html data-theme="dark">`
@@ -53,4 +53,3 @@ Wenn du später Web Components hinzufügen willst, sollten sie **aus den Contrac
 ## Playbooks
 
 Framework-agnostic AI playbooks live in `playbooks/`.
-

@@ -6,7 +6,7 @@ Create a prototype screen by following a DLS pattern/recipe.
 
 ## Required inputs
 
-- Pattern JSON: `design-system/patterns/<id>/pattern.json`
+- Pattern JSON: `patterns/<id>/pattern.json`
 - Relevant contracts listed in `uses_contracts`
 - Tokens + rules as described in `playbooks/use-tokens.md`
 
@@ -20,4 +20,3 @@ Create a prototype screen by following a DLS pattern/recipe.
 
 - Keep it simple and prototype-friendly.
 - Do not hardcode colors/spacing; use tokens.
-

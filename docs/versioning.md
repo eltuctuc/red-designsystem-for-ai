@@ -4,6 +4,10 @@ This repository follows **Semantic Versioning**: `MAJOR.MINOR.PATCH`.
 
 Even while the version is still `0.x.y`, this document defines how we classify changes so history stays consistent and becomes GitHub/OSS-friendly.
 
+## Pre-1.0.0 note (0.x)
+
+While `MAJOR` is `0`, we may occasionally ship breaking changes in a **MINOR** bump (e.g. `0.1.0` → `0.2.0`) because the system is still stabilizing. Such changes must be clearly called out in `CHANGELOG.md`.
+
 ## What counts as MAJOR
 
 Changes that break existing consumers (humans, tools, or downstream AI prompts) by removing or changing meaning:
@@ -45,4 +49,3 @@ Backwards-compatible fixes and clarifications:
 
 - Always update `CHANGELOG.md` when changing any public spec or tooling behavior.
 - Prefer Git tags for releases; the `package.json` version should match release tags.
-

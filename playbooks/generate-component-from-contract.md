@@ -6,9 +6,9 @@ Implement a UI component in the current project based on a DLS contract.
 
 ## Required inputs
 
-- Contract JSON: `design-system/contracts/<id>/contract.json`
-- Tokens CSS: `design-system/tokens/dist/theme.css`
-- Rules: `design-system/rules/rules.json`
+- Contract JSON: `contracts/<id>/contract.json`
+- Tokens CSS: `tokens/dist/theme.css`
+- Rules: `rules/rules.json`
 
 ## Output expectations
 
@@ -22,4 +22,3 @@ Implement a UI component in the current project based on a DLS contract.
 - Do not invent new token names; use existing semantic tokens.
 - Do not remove focus styles; respect reduced motion.
 - If contract requires complex ARIA (combobox/tabs/dialog), follow the contract exactly.
-

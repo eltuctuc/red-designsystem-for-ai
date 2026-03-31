@@ -8,6 +8,11 @@ The format is based on **Keep a Changelog** and the project follows **Semantic V
 
 -
 
+## [0.2.0] - 2026-03-31
+
+- Flatten repository layout: moved all DLS files from `design-system/` into repo root.
+- Updated playbooks and docs to use root-relative paths.
+
 ## [0.1.0] - 2026-03-31
 
 - Initial DLS structure (tokens, rules, contracts, patterns, schemas, tooling scaffolding).

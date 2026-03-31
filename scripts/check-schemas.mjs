@@ -7,7 +7,7 @@ try {
   ({ default: Ajv } = await import("ajv/dist/2020.js"));
 } catch {
   console.error(
-    "Missing dependency: ajv. Run `npm install` in `design-system/` to enable JSON Schema validation."
+    "Missing dependency: ajv. Run `npm install` in the repo root to enable JSON Schema validation."
   );
   process.exit(1);
 }
